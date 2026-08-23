@@ -199,7 +199,8 @@
        that declaration is what the URL promises. */
     var page = currentPage();
     var siteTitle = t(META.title);
-    var pageTitle = page ? t(page.title) : "";
+    /* the hub is the site itself — no "Overview · " prefix on the home title */
+    var pageTitle = currentSlug() === "home" ? "" : (page ? t(page.title) : "");
     document.title = pageTitle ? pageTitle + " · " + siteTitle : siteTitle;
 
     var brand = document.getElementById("brandName");
