@@ -1,4 +1,4 @@
-/* Deep-dive analysis data for the six audited repositories.
+/* Deep-dive analysis data for the eight audited repositories.
    Pure data. Inline markup: `code` and **bold** are rendered by app.js
    AFTER HTML-escaping, so raw data can never inject markup. */
 window.GA_PROJECTS = [
@@ -457,6 +457,166 @@ window.GA_PROJECTS = [
     verdict: {
       en: "The highest total score in the audit: original localized content with professional pedagogy, deployment security that practices what it teaches, and a surprise 3D game inside. Its gaps — no CI, a GA tracker on a privacy site — are fixable process debts, not design flaws.",
       zh: "本次體檢總分最高：原創在地化內容＋專業教學設計、身體力行的部署安全，還藏了一款 3D 遊戲。它的缺口——沒有 CI、隱私網站掛 GA——是可修的流程債，不是設計缺陷。"
+    }
+  },
+
+  /* ================================================================ 7 */
+  {
+    slug: "yakyulife",
+    order: 7,
+    author: "leoggcat",
+    repo: "LeoGGcat/yakyulife",
+    demo: "https://www.yakyolife.com/",
+    intro: "https://github.com/LeoGGcat/yakyulife/blob/main/YaKyoLife-WIKI.md",
+    title: { en: "YaKyoLife", zh: "YaKyoLife 棒球人生模擬器" },
+    tagline: {
+      en: "A text-only Taiwanese baseball career sim: high-school tournaments, the draft, CPBL → NPB → MLB, Tommy John surgery, free agency and the Hall of Fame vote — all driven by a seeded PRNG, so the same seed plus the same choices replays the same life.",
+      zh: "純文字的台灣棒球生涯模擬：高中三大賽、選秀、中職→日職→大聯盟、Tommy John 手術、自由球員與名人堂票選——全部由種子化 PRNG 驅動，相同種子＋相同選擇＝重播同一段人生。"
+    },
+    genre: { en: "Text career life-sim", zh: "純文字生涯養成模擬" },
+    stack: ["Vanilla JS (ES modules)", "No build step", "Canvas 2D", "CSS custom properties", "PWA", "GitHub Pages"],
+    period: "2026-08-07 → 2026-08-24",
+    devDays: 18, commits: 267, loc: 8736,
+    scores: { tech: 7.5, design: 8.5, backend: 5.5, quality: 7.5, testing: 2.5, completeness: 8.5, originality: 7.5 },
+    dims: {
+      tech: {
+        en: "No renderer to show off — the depth is in the **domain model**. `career.js` converts positional difficulty into runs and rescales it to each league's actual season length (120/143/162 games) rather than hardcoding 162, then applies ERA/WHIP and AVG/OPS quality factors so stat-padding cannot outrank suppression. `season.js` derives rate stats from ability-minus-league-par with normal noise and enforces physical constraints (SV+HLD+W+L ≤ games, steals capped by times on base). `injury.js` models ligament load as pitch-quality × effort × role-normalized workload with post-surgery scar multipliers. Around it: a seeded mulberry-style PRNG (`rng.js`), deterministic team-strength hashing from `SEED|season|year|team` so a whole league can be rebuilt without storing it, a two-pass measure-then-paint Canvas renderer for the settlement image, WCAG relative-luminance math to pick readable text on all 48 team colours (`dom.js:29`), hand-rolled iOS double-tap zoom suppression that exempts drags (`main.js:20-37`), and a PWA manifest built at runtime as a Blob URL (`main.js:148-165`).",
+        zh: "沒有炫技的渲染器——深度在**領域模型**。`career.js` 把守位難度換算成失分再依各聯盟真實球季場次（120／143／162）縮放，而不是寫死 162，再套 ERA/WHIP 與 AVG/OPS 品質係數，讓「堆數據」壓不過「壓制力」。`season.js` 由「能力減聯盟基準」加常態噪音推導率值，並強制物理約束（救援＋中繼＋勝＋敗 ≤ 出賽數、盜壘以上壘次數封頂）。`injury.js` 把韌帶負荷模型化為球威 × 投法 × 角色標準化工作量，術後再乘疤痕係數。周邊還有：種子化 mulberry 式 PRNG（`rng.js`）、以 `SEED|season|year|team` 決定性雜湊出球隊強弱（整個聯盟不必存檔就能重建）、結算圖的「先量測再繪製」兩趟 Canvas 渲染、以 WCAG 相對亮度替 48 種隊色挑可讀文字色（`dom.js:29`）、手刻的 iOS 雙擊縮放抑制且放行拖曳（`main.js:20-37`），以及以 Blob URL 在執行期組出 PWA manifest（`main.js:148-165`）。"
+      },
+      design: {
+        en: "The strongest design dimension in this audit, because it is the only one **measured**. The changelog shows full-flow Monte Carlo runs (11 career paths × 1,400 lives; one pass over 12,600 careers) used to re-anchor the whole evaluation ladder to explicit targets — Hall of Fame = 15% of players, historic-tier = 25% of inductees. Those runs found real breakage: HOF thresholds calibrated against ability 68–80 when the potential generator's median pitcher ceiling is 61.0, so the NPB and MLB pitcher lines sat *above any reachable player*; closers whose 10 save titles converted to 5% of their career score; MLB being a dead end (4.1% HOF) because it was penalized twice; and induction year drawn as `ri(2,6)` random, making the vote independent of how good you were. Each fix is argued with before/after rates. The loop itself — three-phase years, 92 event cards with three risk modes each, 34 hidden traits, a dice-allocation cost curve, contract/FA/posting rules — has genuine trade-offs rather than pure stat stacking.",
+        zh: "本次體檢最強的設計面向，因為它是唯一**量測過**的。CHANGELOG 記錄了完整流程的蒙地卡羅模擬（11 條生涯路線 × 1,400 段人生；另一輪跑 12,600 段生涯），把整條評價階梯重新錨定到明確目標——名人堂＝全部玩家的 15%、歷史級＝名人堂的 25%。那些模擬揪出真的壞掉的東西：名人堂門檻是用「能力 68～80」校準的，但潛力生成器的投手球威潛力中位只有 61.0，於是日職與大聯盟的投手線**高過任何玩家可能達到的上限**；終結者拿 10 次救援王，獎項只折算成生涯總分的 5%；大聯盟被罰兩次而成為名人堂死路（4.1%）；入選年份用 `ri(2,6)` 亂數決定，讓票選與實力無關。每一項修正都附前後數據。玩法本身——三階段年度循環、92 張三段風險模式事件卡、34 個隱藏特質、擲骰配點的成本曲線、合約／FA／入札規則——有真實取捨，不是純數值堆疊。"
+      },
+      backend: {
+        en: "There is no backend by design: no accounts, no server, nothing leaves the browser, and no secrets exist to leak. Input validation on the start screen is careful — name and jersey are checked with `setCustomValidity` and a half-filled form is rejected rather than silently mixed with defaults. The gap is the **seed**: `rng.js:2` reads `?seed=` straight from the URL with no sanitizing or length limit, and the retirement screen passes it into `choose()`, which assigns `innerHTML` (`dom.js:127`). A crafted link therefore injects markup — in exactly the share-a-seed-link feature the game promotes, though only for a visitor who plays a career through to retirement. The player name takes the same unescaped path into `card()`, but that one is self-supplied and capped at 10 characters.",
+        zh: "刻意沒有後端：無帳號、無伺服器、資料不離開瀏覽器，也就沒有密鑰可洩漏。開場的輸入驗證做得細——姓名與背號用 `setCustomValidity` 檢查，只填一欄會被擋下而不是偷偷混入預設值。缺口在**種子**：`rng.js:2` 直接讀 `?seed=` 且不做消毒與長度限制，引退畫面再把它丟進 `choose()`，而 `choose()` 用的是 `innerHTML`（`dom.js:127`）。於是精心構造的連結可以注入標記——正好落在遊戲主打的「分享種子連結」功能上，只是需要對方把一段生涯玩到引退才會觸發。球員姓名走同一條未跳脫的路徑進 `card()`，但那是玩家自己輸入且限 10 字。"
+      },
+      quality: {
+        en: "The best-commented codebase in this audit. 45 files in a clean `core / data / engine / flow / ui` split, and the comments explain **why** with numbers attached: why team colours became chip backgrounds (29 of 48 fell below 3:1 contrast), why old year-blocks are no longer pruned from the DOM (it broke timeline scroll and was never the saving it looked like), why a hard third-TJ deadline was removed (it made the player's decisions meaningless). Real PR flow too: 25 merges, feature branches from a second contributor, a DEV → main release ritual. The debts: `newState()` returns a single ~100-field god object with a 40-boolean `traits` map (`state.js:8`), `season.js` still imports what its own comment calls a 'temporary scaffold' from contract/awards/intl, a few files degrade into single-line walls (`dom.js:86`), and every one of the 173 `?v=1.5.8` import tokens has to be bumped by hand on each release.",
+        zh: "本次體檢註解寫得最好的一份程式碼。45 個檔案切成乾淨的 `core / data / engine / flow / ui`，而註解說明的是**為什麼**且附上數字：為什麼隊色改當底色（48 色裡有 29 色對比度低於 3:1）、為什麼不再從 DOM 裁掉舊年度區塊（會讓時間軸捲動失效，而且根本沒省到）、為什麼移除「二次重建後第三年必拉警報」的硬性期限（那讓玩家的決策失去意義）。也有真實的 PR 流程：25 次 merge、第二位貢獻者的 feature 分支、DEV → main 的發版儀式。債務是：`newState()` 回傳一個約 100 個欄位的 god object，內含 40 個布林的 `traits`（`state.js:8`）；`season.js` 仍在 import 它自己註解裡承認的「temporary scaffold」；少數檔案退化成單行長牆（`dom.js:86`）；每次發版都要手動把 173 個 `?v=1.5.8` import token 全數改掉。"
+      },
+      testing: {
+        en: "No test files, no CI, no linter, no `package.json` — nothing runs automatically. And yet this project verifies more than any other here: the changelog reports simulated populations (N=250 per configuration, up to 12,600 careers per calibration) with before/after induction rates for every balance change. That is empirical validation, just not reproducible by anyone else — **the simulation harness is not in the repository**, so no reviewer can re-run a single number, and no regression can be caught automatically. The pure functions most worth testing (`careerScore`, `honorScore`, `tjAccrue`, the stat-consistency clamps) are exactly the ones the simulations exercise informally and the repo tests not at all.",
+        zh: "沒有測試檔、沒有 CI、沒有 linter、沒有 `package.json`——什麼都不會自動跑。但這個專案驗證的程度超過本站其他任何一個：CHANGELOG 對每一項平衡調整都附模擬母體（每組配置 N=250，單次校準最多 12,600 段生涯）與前後入選率。那是實證驗證，只是別人無法重現——**模擬工具沒有進 repo**，任何審閱者都無法重跑任何一個數字，也沒有任何回歸能被自動攔下。最值得測的純函式（`careerScore`、`honorScore`、`tjAccrue`、數據一致性 clamp）正好就是模擬非正式驗證過、而 repo 完全沒測的那些。"
+      },
+      completeness: {
+        en: "Shipped like a product, not a prototype: live on its own domain, installable as a PWA, four themes, separate desktop and mobile layouts, a large-text mode, an accidental-reload guard, a Canvas settlement card with a system share sheet, and a replay link. Around the game sit a 506-line wiki, a changelog covering 32 released versions in 18 days, a Discord community and a sponsorship page. Content is deep too — 92 event cards (each with three risk modes and separate success/failure text), 34 traits, 48 fictional teams across three leagues. Every one of the 18 days from first commit to last has commits on it.",
+        zh: "是產品的出貨方式，不是原型：上線於自有網域、可安裝為 PWA、四種佈景主題、電腦與手機各一套版型、大字級模式、誤觸重整保護、Canvas 結算圖＋系統分享、重播連結。遊戲周邊有 506 行 wiki、18 天內 32 個發布版本的更新日誌、Discord 社群與贊助頁。內容量也紮實——92 張事件卡（每張三種風險模式、成敗各有文本）、34 個特質、三個聯盟共 48 支虛構球隊。從第一個到最後一個 commit 的 18 天，天天都有 commit。"
+      },
+      originality: {
+        en: "Baseball career sims exist (Power Pros' Success mode, OOTP), and the year-loop-plus-event-cards skeleton is a known shape. What is genuinely scarce is this **subject**: a Traditional-Chinese sim built around the Taiwanese path specifically — high-school tournaments, the CPBL draft, going to Japan or the US, international call-ups, the posting fee, coming home. The 48 team names are parodies close enough to read instantly and far enough to stay clear of trademarks. The seeded-life framing (a shareable seed as a replayable life) and a Hall-of-Fame vote whose ballot share is derived from how far you cleared the line are both more than genre furniture.",
+        zh: "棒球生涯模擬不是新東西（實況野球的成功模式、OOTP），年度循環＋事件卡也是熟面孔。真正稀缺的是這個**題材**：一款繁體中文、完全依台灣路徑打造的模擬——高中三大賽、中職選秀、旅日旅美、國際賽徵召、入札金、回台。48 個隊名是恰到好處的戲仿：近到一眼看懂，遠到避開商標。「種子化人生」（可分享的種子＝可重播的一生）與「得票率由超標比例決定」的名人堂票選，都不只是類型裝飾。"
+      }
+    },
+    highlights: [
+      { en: "**Balance calibrated by simulation** — full-flow Monte Carlo runs re-anchored the evaluation ladder to explicit targets (HOF = 15% of all players) after proving the old thresholds were unreachable (`CHANGELOG.md` v1.5.8)", zh: "**用模擬校準平衡**——完整流程蒙地卡羅把評價階梯重新錨定到明確目標（名人堂＝全部玩家 15%），因為證明了舊門檻根本走不到（`CHANGELOG.md` v1.5.8）" },
+      { en: "**Season-length-aware positional value** — defensive difficulty is converted to runs and rescaled per league (120/143/162 games) instead of a hardcoded 162, so shorter leagues do not silently lose positional credit (`career.js`)", zh: "**守位價值隨球季長度縮放**——守位難度換算成失分後依各聯盟場次（120／143／162）縮放，而非寫死 162，場次較少的聯盟不會被默默吃掉守位分（`career.js`）" },
+      { en: "**A ligament-load model, not a dice roll** — TJ risk accrues from pitch quality × effort × role-normalized workload, with scar multipliers after each surgery, tuned against real-world surgery frequency (`injury.js:9-33`)", zh: "**韌帶負荷模型，不是擲骰**——TJ 風險由球威 × 投法 × 角色標準化工作量累積，每次手術後加疤痕係數，並對照現實動刀頻率調校（`injury.js:9-33`）" },
+      { en: "**Deterministic worlds from one string** — team strength is hashed from `SEED|season|year|team`, so an entire league's history is reproducible without being stored (`contract.js:104`)", zh: "**一串種子長出決定性的世界**——球隊強弱由 `SEED|season|year|team` 雜湊而來，整個聯盟的歷史不必儲存就能重現（`contract.js:104`）" },
+      { en: "**Contrast math for 48 team colours** — jersey primaries became chip backgrounds with luminance-picked text after 29 of 48 measured below 3:1 as text (`dom.js:26-33`)", zh: "**48 種隊色的對比度計算**——量到 48 色中有 29 色當文字時低於 3:1，於是改用隊色當底、依亮度挑文字色（`dom.js:26-33`）" }
+    ],
+    weaknesses: [
+      { en: "**Unsanitized seed reaches `innerHTML`** — `?seed=` is read raw (`rng.js:2`) and rendered through `choose()` at retirement (`dom.js:127`), so a crafted share link can inject markup", zh: "**未消毒的種子進入 `innerHTML`**——`?seed=` 原樣讀入（`rng.js:2`），引退時經 `choose()` 渲染（`dom.js:127`），構造過的分享連結可注入標記" },
+      { en: "**The simulation harness is not in the repo** — every balance claim in the changelog is unverifiable and unrepeatable by anyone else", zh: "**模擬工具沒進 repo**——CHANGELOG 裡每一項平衡論述，別人都無法驗證、無法重跑" },
+      { en: "**One ~100-field god state** — `newState()` returns every counter, flag and 40-boolean trait map in a single object (`state.js:8`)", zh: "**約 100 個欄位的 god state**——`newState()` 把所有計數器、旗標與 40 個布林特質塞進單一物件（`state.js:8`）" },
+      { en: "**173 hand-maintained cache-bust tokens** — every `?v=1.5.8` import specifier must be bumped in lockstep at each release; one miss ships a mixed-version module graph", zh: "**173 個手動維護的 cache-bust token**——每次發版都要把所有 `?v=1.5.8` import 同步改掉，漏一個就會出貨混版本的模組圖" },
+      { en: "**No tests, no CI, no linter** — not even a `package.json`; nothing at all runs before a release goes live", zh: "**零測試、零 CI、零 linter**——連 `package.json` 都沒有；發版前沒有任何東西會跑" }
+    ],
+    ai: {
+      en: "Openly co-developed with AI, but not AI-run: Claude is the commit author on 39 of 267 commits and co-signs 30 more, alongside four human identities — the owner (also credited on the title screen as 最先生 Mr.TheMost), a second developer contributing through pull requests, and merge commits from a DEV branch. The human fingerprints are the interesting part: `events.js` opens by naming the spreadsheet its 92 cards were generated from, notes exactly which five IDs the source workbook was missing, and instructs that they **must not be invented without source text** — a guardrail against exactly the failure mode AI content generation invites.",
+      zh: "公開與 AI 共同開發，但不是 AI 主導：267 個 commit 中 Claude 是作者的有 39 個、另有 30 個共同署名，旁邊還有四個人類身分——擁有者（片頭也署名為最先生 Mr.TheMost）、以 pull request 貢獻的第二位開發者，以及 DEV 分支的 merge commit。有意思的是人類的指紋：`events.js` 開頭寫明 92 張卡是由哪一份試算表產生、缺哪五個 ID，並註明**沒有來源文本就不得自行補寫**——正好是針對 AI 內容生成最容易出的那種錯所設的護欄。"
+    },
+    special: {
+      title: { en: "The changelog that runs the numbers", zh: "會跑數字的更新日誌" },
+      body: [
+        { en: "Most hobby games tune balance by feel. This one re-derived it. The v1.5.8 entry reports that the Hall-of-Fame thresholds in every previous version had been calibrated against static ability values of 68–80 — a range **no player can reach**, because the potential generator caps a pitcher's three power tools at a median ceiling of 61.0 and a theoretical maximum of 69.3. The NPB (69.8) and MLB (72.2) pitcher lines were therefore above any attainable player, and the measured Hall-of-Fame rate across the whole player population was 1.2%.", zh: "多數業餘遊戲靠手感調平衡，這一款把它重新推導了一遍。v1.5.8 記載：先前所有版本的名人堂門檻，都是拿「固定能力值 68～80」校準的，而那個區間**沒有玩家到得了**——潛力生成器把投手三項球威的潛力中位釘在 61.0、理論最高 69.3。於是日職（69.8）與大聯盟（72.2）的投手名人堂線高過任何可達成的球員，實測整個玩家母體的名人堂率是 1.2%。" },
+        { en: "The fix is equally characteristic: rather than lowering the visible line, the league coefficients were scaled by 1.8834 — mathematically identical to dividing the thresholds, but it keeps the number players already recognize (7,500) on screen. The same entry re-rates closers (a 10-save-title career was scoring 354 of ~7,000 points), stops MLB from being a Hall-of-Fame dead end (4.1% → 20.9%), and replaces a random `ri(2,6)` induction year with one derived from how far the player cleared the line.", zh: "修法同樣有代表性：不是把看得見的門檻調低，而是把聯盟係數同乘 1.8834——數學上等同於除門檻，卻讓玩家已經熟悉的那個數字（7,500）留在畫面上。同一則還重評了終結者（拿 10 次救援王的生涯，獎項只折算出 354 分）、讓大聯盟不再是名人堂死路（4.1% → 20.9%），並把 `ri(2,6)` 的隨機入選年份改為由「超標多少」決定。" },
+        { en: "It is the clearest case in this audit of a hobby project doing something professional studios often skip — and the clearest example of the audit's own recurring gap, because none of that simulation code is in the repository.", zh: "這是本次體檢中，業餘專案做了連職業工作室也常略過的事的最清楚案例——同時也是本站反覆看到的那個缺口最清楚的例子，因為那些模擬程式一行都不在 repo 裡。" }
+      ]
+    },
+    verdict: {
+      en: "The deepest simulation in this audit and the most rigorous balance work, shipped as a real product in 18 days with a changelog that argues its own numbers. Its ceiling is set by process, not craft: no tests, no CI, a calibration harness that lives outside the repo, and one unsanitized URL parameter reaching `innerHTML` in the very feature built for sharing.",
+      zh: "本次體檢中最深的模擬與最嚴謹的平衡工程，18 天內以真正的產品規格出貨，還附上一份會替自己數字辯護的更新日誌。它的天花板來自流程而非手藝：沒有測試、沒有 CI、校準工具在 repo 之外，還有一個未消毒的 URL 參數進到 `innerHTML`——就落在專為分享而做的那個功能上。"
+    }
+  },
+
+  /* ================================================================ 8 */
+  {
+    slug: "cheerlife",
+    order: 8,
+    author: "jarvanthevoyager",
+    repo: "jarvanthevoyager/CheerLife",
+    demo: "https://jarvanthevoyager.github.io/CheerLife/",
+    intro: "https://github.com/jarvanthevoyager/CheerLife/blob/main/wiki.md",
+    title: { en: "CheerLife", zh: "CheerLife 啦啦隊人生模擬器" },
+    tagline: {
+      en: "A cheer-squad career sim in a single 3,500-line HTML file: from a high-school dance club at 16 to retirement at 42, through open auditions, trainee contracts, in-squad ranking against a rival who keeps improving, side businesses, burnout — and how you choose to leave the stage.",
+      zh: "裝在單一 3,500 行 HTML 檔裡的啦啦隊生涯模擬：16 歲高中舞社到 42 歲引退，一路經歷公開徵選、練習生合約、與逐年變強的對手爭隊內排位、副業經營、身心崩潰——以及你要用什麼姿態離開舞台。"
+    },
+    genre: { en: "Text career life-sim", zh: "純文字生涯養成模擬" },
+    stack: ["Single-file HTML", "Vanilla JS", "Canvas 2D", "SVG", "localStorage", "GitHub Pages"],
+    period: "2026-08-12 → 2026-08-19",
+    devDays: 4, commits: 17, loc: 3497,
+    scores: { tech: 5.5, design: 7.5, backend: 6.5, quality: 5, testing: 3, completeness: 7, originality: 7 },
+    dims: {
+      tech: {
+        en: "Competent rather than deep, and deliberately so: one HTML file, no build, no dependencies, everything in a single global scope. Inside it are a mulberry32 PRNG seeded from a hashed string, a d20 check system with difficulty scaled by league rank and stress, an inflation-indexed economy (2.8%/year applied to tax brackets, upkeep and every price), decaying revenue streams with crisis events, versioned `localStorage` saves with a documented migration path, a Canvas career card in team colours, and SVG radar and ring charts. The one piece of real technique is `readable()` — relative-luminance colour derivation so a dark team primary stays legible as text — which is the same approach found in `yakyulife/src/ui/dom.js`.",
+        zh: "稱職但不深，而且是刻意的：單一 HTML 檔、零建置、零依賴、全部塞在同一個全域作用域。裡面有：以字串雜湊播種的 mulberry32 PRNG、難度隨聯盟階級與壓力浮動的 d20 檢定、通膨指數化的經濟系統（每年 2.8%，套用於稅級距、維持費與所有價格）、會遞減並觸發危機事件的持續收入、有版本號與遷移路徑的 `localStorage` 存檔、隊伍配色的 Canvas 生涯卡、SVG 雷達圖與環形圖。唯一稱得上技術的是 `readable()`——以相對亮度推導可讀色，讓深色隊伍主色當文字仍看得見——而那與 `yakyulife/src/ui/dom.js` 是同一套做法。"
+      },
+      design: {
+        en: "Densely systemic for its size, and the best ideas are inversions rather than additions. The 💀 hardest seed starts with the lowest ability ceilings but gets the most 'breakthrough' attempts and the cheapest thresholds, so the worst start ends with the highest ceiling — effort as a real alternative to talent, with achievements exclusive to that route. Burnout is not a health bar: stress ≥88 at season end triggers a three-strike sequence ending in a doctor forcing retirement. A same-cohort rival grows every year, blocks the centre spot, and retires at 34 to be replaced. Action points and offseason slots are scarce on two independent axes, focus and all-round training combos are mutually exclusive, and side businesses have diminishing returns — so there is no build that takes everything. What is missing is verification: thresholds are adjusted by observation ('measured as hard to reach') rather than by simulated distributions.",
+        zh: "以這個體量而言系統密度很高，而最好的點子是「反轉」不是「加法」。💀 最苦的種子起始資質上限最低，卻拿到最多的「鑽研」次數與最低的門檻，於是最差的起點練到最後天花板最高——努力成為天賦的真實替代路線，還獨佔專屬成就。崩潰不是一條血條：季末壓力 ≥88 觸發三振式判定，第三次由醫生強制引退。同期對手逐年變強、擋在 C 位前面，34 歲引退後由新一代接手。行動點與休賽期檔期是兩條各自獨立的稀缺軸，專注連段與全能連段互斥，副業收益遞減——沒有「全部都要」的流派。缺的是驗證：門檻是靠觀察（「實測難以達到」）調整，不是靠模擬分布。"
+      },
+      backend: {
+        en: "No backend and, unusually for this audit, no privacy contradiction either: no accounts, no server, an explicit statement that nothing is uploaded, a documented table of exactly which `localStorage` keys exist and when each is cleared, and a cookieless GoatCounter for traffic instead of Google Analytics (`index.html:3494`). Output hygiene is the best of the two life-sims: an `esc()` helper (`index.html:339`) is applied consistently at every `innerHTML` interpolation, while narrative text goes through `textContent`. Saves are read defensively — `JSON.parse` wrapped in try/catch, version-gated, with missing fields backfilled on load after a previous release shipped saves that could hang the offseason.",
+        zh: "沒有後端，而且在本次體檢中少見地也沒有隱私上的自相矛盾：無帳號、無伺服器、明講不上傳任何資料、附上一張表列出用了哪些 `localStorage` 鍵與各自何時清除，流量統計用的是無 cookie 的 GoatCounter 而非 Google Analytics（`index.html:3494`）。輸出衛生是兩款人生模擬中較好的：`esc()`（`index.html:339`）在每一處 `innerHTML` 插值都有套用，敘事文字則走 `textContent`。存檔讀取也防守到位——`JSON.parse` 包在 try/catch、以版本控管，並在某次發版出貨了會讓休賽期卡住的存檔後，改為載入時補齊缺漏欄位。"
+      },
+      quality: {
+        en: "The weakest dimension, and the direct cost of the single-file constraint: roughly 3,160 lines of JavaScript in one global scope, 131 top-level functions, 16 inline `onclick` attributes that force those functions to stay global, and aggressive abbreviation (`S`, `T`, `H`, `DF`, `SEA`, `MB`, `TI`) that makes call sites hard to read without a key. Comments carry numbered markers like `修正③` and `⑮` that reference a review checklist which does not exist in the repository. What holds it together is a genuinely uniform data shape: every event is `{id, where, w, cd, cond, title, desc, ch}` and every choice returns `{ok, calc, story, log}` through a single `fx()` effect applier — so 104 events stay consistent even without modules.",
+        zh: "最弱的面向，也是單檔限制的直接代價：約 3,160 行 JavaScript 全在同一個全域作用域、131 個頂層函式、16 個 inline `onclick` 迫使那些函式必須留在全域，加上極度縮寫的命名（`S`、`T`、`H`、`DF`、`SEA`、`MB`、`TI`），沒有對照表就很難讀懂呼叫端。註解裡帶著 `修正③`、`⑮` 這類編號，指向一份不在 repo 裡的檢查清單。撐住整體的是真正統一的資料形狀：每個事件都是 `{id, where, w, cd, cond, title, desc, ch}`，每個選項都經由單一的 `fx()` 效果套用器回傳 `{ok, calc, story, log}`——所以即使沒有模組化，104 個事件仍然一致。"
+      },
+      testing: {
+        en: "Still no automated tests and no CI, but this is the only project in the audit that ships a checker at all. `validateEvents()` (`index.html:3471`), run by loading the page with `#dev`, walks every event to catch duplicate ids, missing `where`/`cd`, fewer than two choices, and `title()`/`ch()` throwing at runtime — then asserts domain rules that only a human who knew the failure mode would write: audition and trainee events must be gated on the corresponding flags, dual-squad events on `sideLg`, and student-stage content must not contain professional content. It is a manual, opt-in integrity pass over data rather than a test suite over logic, and nothing enforces it before a release.",
+        zh: "一樣沒有自動化測試、沒有 CI，但這是本次體檢中唯一有附檢查器的專案。`validateEvents()`（`index.html:3471`）以 `#dev` 載入頁面時執行，遍歷每個事件抓出 id 重複、缺 `where`／`cd`、選項少於兩個、`title()`／`ch()` 執行期丟錯——接著斷言只有踩過坑的人才寫得出來的領域規則：徵選與練習生事件必須以對應旗標 gate、兼任事件要看 `sideLg`、學生階段不得混入職業內容。它是人工、手動觸發的資料完整性掃描，不是對邏輯的測試套件，而且發版前沒有任何機制強制它跑過。"
+      },
+      completeness: {
+        en: "Playable end to end and well documented — live on GitHub Pages, a 1,681-line wiki, a changelog that explains save compatibility per release, an achievements hall persisting across careers, a shareable career card, mobile-first layout with safe-area handling, and real accessibility attributes (`role=\"progressbar\"`, `aria-live`, `radiogroup`, a focus-trapped dialog, `noscript`). The documentation is where it frays: the README still advertises 101 events and 48 achievements when the build has 104 and 49, its version badge says v1.1.0 while the page title says V1.1.1, and three of its links are broken — `./CHANGELOG.md` (the file is `Changelog.md`), `./docs/WIKI.md` (the wiki is at the root), and `./LICENSE`, which is badged CC BY-NC but absent from the repository. Template placeholders survive too: a `你的帳號` clone URL and a '← replace with your actual choice' note next to the licence line.",
+        zh: "從頭到尾可玩、文件也齊——上線於 GitHub Pages、1,681 行 wiki、逐版說明存檔相容性的更新日誌、跨生涯保存的成就殿堂、可分享的生涯卡、手機優先且處理安全區域的版型，還有真的無障礙屬性（`role=\"progressbar\"`、`aria-live`、`radiogroup`、有焦點鎖的對話框、`noscript`）。掉漆的是文件：README 仍寫 101 個事件、48 項成就，實際 build 是 104 與 49；版本徽章寫 v1.1.0、頁面標題寫 V1.1.1；三個連結是壞的——`./CHANGELOG.md`（檔名其實是 `Changelog.md`）、`./docs/WIKI.md`（wiki 在根目錄），以及 `./LICENSE`：徽章寫著 CC BY-NC，但 repo 裡根本沒有這個檔案。範本佔位字也還在：`你的帳號` 的 clone 網址，以及授權那行旁邊的「← 依你的實際選擇替換」。"
+      },
+      originality: {
+        en: "The setting is the rarest in this audit. Sports-career sims are a crowded genre; a career sim about **cheer-squad performers** — auditions, in-squad ranking, moonlighting across two sports, the merchandise and livestream economy, the industry's real physical and emotional toll — is one this reviewer could not find a prior example of, and the writing is specific enough to be recognizably Taiwanese rather than generic. The chassis, though, is inherited: the README credits the original concept to 最先生 (@mr.themost), the same person credited on YaKyoLife's title screen and present in its git history, and the two games share a seeded-life structure, a settlement card, second-life endings and an all-but-identical farewell line. Original setting, borrowed frame.",
+        zh: "題材是本次體檢中最稀有的。運動生涯模擬是擁擠的類型；但以**啦啦隊員**為主角的生涯模擬——徵選、隊內排位、跨運動兼任、周邊與直播經濟、這個行業真實的身心消耗——本文作者找不到前例，而且文本具體到讀得出是台灣而非泛用背景。不過底盤是繼承來的：README 把原創概念署名給最先生（@mr.themost），正是 YaKyoLife 片頭署名、且出現在其 git 歷史中的同一人，兩款遊戲共享種子化人生的結構、結算卡、第二人生結局，以及幾乎一字不差的道別句。原創的題材，借來的骨架。"
+      }
+    },
+    highlights: [
+      { en: "**The worst seed gets the highest ceiling** — 💀 seeds start with the lowest ability caps but get the most breakthrough attempts, the cheapest thresholds and exclusive achievements: effort modelled as a real alternative to talent", zh: "**最差的種子擁有最高的天花板**——💀 種子起始資質上限最低，卻拿到最多鑽研次數、最低門檻與專屬成就：把「努力」做成天賦的真實替代路線" },
+      { en: "**Burnout as a three-strike sequence** — stress ≥88 at season end escalates from medical rest to permanent chronic stress to a doctor ending the career, with its own retirement title", zh: "**壓力三振**——季末壓力 ≥88 逐級升高：醫囑休養 → 留下永久慢性壓力 → 醫生禁止上場強制引退，並有專屬引退稱號" },
+      { en: "**A rival with a lifespan** — a same-cohort competitor gains score every year, blocks the centre spot, then retires at 34 and is replaced by the next generation", zh: "**有壽命的對手**——同期競爭者逐年加分、擋住 C 位，34 歲引退後由下一代接手" },
+      { en: "**A hand-written integrity checker** — `validateEvents()` asserts gating rules and executes every event's `title()`/`ch()` to catch runtime errors, run via `#dev` (`index.html:3471`)", zh: "**手寫的完整性檢查器**——`validateEvents()` 斷言 gate 規則並實際執行每個事件的 `title()`／`ch()` 以抓出執行期錯誤，以 `#dev` 觸發（`index.html:3471`）" },
+      { en: "**Consistent output escaping** — a single `esc()` helper applied at every `innerHTML` interpolation, with narrative text routed through `textContent` (`index.html:339`)", zh: "**一致的輸出跳脫**——單一 `esc()` 套用於每一處 `innerHTML` 插值，敘事文字則走 `textContent`（`index.html:339`）" }
+    ],
+    weaknesses: [
+      { en: "**Three broken README links** — `./CHANGELOG.md` (actual file `Changelog.md`), `./docs/WIKI.md` (wiki is at the root) and `./LICENSE`, which is badged CC BY-NC but does not exist in the repo", zh: "**README 三個壞連結**——`./CHANGELOG.md`（實際檔名 `Changelog.md`）、`./docs/WIKI.md`（wiki 在根目錄），以及 `./LICENSE`：徽章寫 CC BY-NC，但 repo 裡沒有這個檔案" },
+      { en: "**Version drift in three places** — README badge v1.1.0, page title V1.1.1, and a header comment claiming `VER 111` above `const VER=110` (`index.html:329-333`); the constant is the correct one, since v1.1.1 is declared save-compatible", zh: "**三處版本不一致**——README 徽章 v1.1.0、頁面標題 V1.1.1、程式開頭註解宣告 `VER 111` 而下一行是 `const VER=110`（`index.html:329-333`）；正確的是常數，因為 v1.1.1 宣告與舊存檔相容" },
+      { en: "**Everything in one global scope** — ~3,160 lines of JS, 131 top-level functions and 16 inline `onclick` handlers that require them to stay global", zh: "**全部擠在一個全域作用域**——約 3,160 行 JS、131 個頂層函式，以及 16 個逼它們必須留在全域的 inline `onclick`" },
+      { en: "**Stale content counts** — the README advertises 101 events and 48 achievements; the shipped build has 104 and 49", zh: "**內容量數字過期**——README 寫 101 個事件、48 項成就；實際 build 是 104 與 49" },
+      { en: "**Balance tuned by observation, not measurement** — thresholds are lowered because they were 'hard to reach in play', with no simulated distribution behind the new number", zh: "**平衡靠觀察而非量測**——門檻因為「實測難以達到」而下修，新數字背後沒有模擬分布支撐" }
+    ],
+    ai: {
+      en: "No AI attribution anywhere — no co-authored commits, no tool config, no generated-with footer. The git history is equally uninformative in the other direction: all 17 commits come from the GitHub web UI ('Add files via upload', 'Update index.html'), so the entire development history happened off-platform and the commit count says nothing about effort. What the artifact itself suggests is a heavily iterated, checklist-driven process — numbered `修正` markers threaded through the code, a changelog that tracks save-schema compatibility release by release, and 104 events sharing one exact object shape.",
+      zh: "全案沒有任何 AI 署名——沒有共同署名的 commit、沒有工具設定檔、沒有 generated-with 註腳。git 歷史在另一個方向上同樣沒有資訊量：17 個 commit 全部來自 GitHub 網頁介面（「Add files via upload」「Update index.html」），代表整段開發歷史發生在平台之外，commit 數完全不能拿來衡量投入。從成品本身能看出的是高度反覆、以檢查清單推進的流程——程式裡穿插編號的 `修正` 標記、逐版追蹤存檔結構相容性的更新日誌，以及 104 個共用同一個物件形狀的事件。"
+    },
+    special: {
+      title: { en: "Two games, one lineage", zh: "兩款遊戲，同一條血脈" },
+      body: [
+        { en: "CheerLife's README credits the original concept to 最先生 (@mr.themost). That is the same name on YaKyoLife's title screen, and `mr.themost <ja42022@gmail.com>` is a committer in YaKyoLife's git history — sharing an email address with the account that owns it. These are not two unrelated hobby projects that happen to look alike.", zh: "CheerLife 的 README 把原創概念署名給最先生（@mr.themost）。那正是 YaKyoLife 片頭署名的同一個名字，而 `mr.themost <ja42022@gmail.com>` 是 YaKyoLife git 歷史中的 committer——與擁有該 repo 的帳號共用同一個 email。這不是兩個碰巧相似、互不相干的業餘專案。" },
+        { en: "The shared chassis is visible in the code: a string-seeded PRNG whose seed is the shareable artifact, a year loop of plan → event → settle, hidden traits revealed at the end, second-life endings after retirement, a Canvas settlement card, and relative-luminance colour derivation so team primaries stay readable. Even the sign-offs rhyme — YaKyoLife's `retire.js` closes with 「離開球場的人生，也是人生」; CheerLife's README closes with 「離開舞台的人生，也是人生」.", zh: "共用的底盤在程式碼裡看得見：以字串播種、且種子本身就是可分享物的 PRNG；規劃 → 事件 → 結算的年度循環；結算才揭曉的隱藏特質；引退後的第二人生結局；Canvas 結算卡；以相對亮度推導可讀色好讓隊色不失效。連收尾都押韻——YaKyoLife 的 `retire.js` 寫「離開球場的人生，也是人生」，CheerLife 的 README 寫「離開舞台的人生，也是人生」。" },
+        { en: "That makes this pair a third species in this audit, alongside the solo-plus-AI sprint and the institutional project: a **format handed to a second producer**. One person's design template, re-skinned onto a completely different subject by someone else, with credit stated up front. The trade shows in the scores — CheerLife wins on output hygiene and ships the audit's only integrity checker, while inheriting a frame it did not have to invent, and skipping the measurement discipline that makes the original's balance defensible.", zh: "於是這一對成為本次體檢的第三個物種，與「個人＋AI 衝刺」和「制度性專案」並列：**把格式交給第二位製作人**。一個人的設計範本，由另一個人換到完全不同的題材上，而且署名寫在最前面。取捨反映在分數上——CheerLife 在輸出衛生上勝出，也是全站唯一附檢查器的專案；但它繼承了一副不必自己發明的骨架，也略過了讓原作平衡站得住腳的那套量測紀律。" }
+      ]
+    },
+    verdict: {
+      en: "A rare subject executed with more discipline than its 17-commit history suggests: dense interlocking systems, the audit's only shipped integrity checker, consistent escaping and an honest privacy posture. It is held back by the single-file architecture it chose, documentation that has drifted away from the build, and balance that is argued by feel where its sibling project argues by simulation.",
+      zh: "稀有的題材，執行紀律遠比 17 個 commit 的歷史看起來更好：系統彼此咬合、全站唯一有出貨檢查器、跳脫一致、隱私姿態誠實。拖住它的是自己選的單檔架構、已經與 build 脫節的文件，以及在姊妹作用模擬論證平衡的地方，它只能用手感論證。"
     }
   }
 ];
