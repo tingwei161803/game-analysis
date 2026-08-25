@@ -3,11 +3,12 @@
 
    Layout engine: reads document.body[data-page], picks a renderer, paints
    into <main id="page">. Reuses the shared toolkit on window.LDW (t,
-   escapeHtml, state, onLang, dialog, pageHref) injected by shell.js.
+   escapeHtml, state, dialog, pageHref) injected by shell.js.
 
    Every human-facing string comes from a {en,zh} object via LDW.t(); every
-   data-derived string is escaped before innerHTML. A language switch re-runs
-   render() so nothing is ever left in the other language.
+   data-derived string is escaped before innerHTML. Which of the two comes out
+   is fixed by the page's own <html lang> — the other language is a different
+   URL, so there is no in-page language switch to repaint.
    ========================================================================= */
 (function () {
   "use strict";
@@ -610,7 +611,7 @@
       input.addEventListener("input", function () { paint(input.value); });
     };
 
-    /* ---------- dispatch + language re-render ---------- */
+    /* ---------- dispatch ---------- */
     function render() {
       var fn = R[page.layout] || R.hub;
       main.innerHTML = "";
@@ -618,7 +619,6 @@
       fn();
     }
     render();
-    L.onLang(function () { render(); });
   }
 
   boot();

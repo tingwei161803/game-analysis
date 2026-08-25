@@ -5,6 +5,9 @@
 -->
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://game-analysis.peteraim.com/</loc>
+  </url>
+  <url>
     <loc>https://game-analysis.peteraim.com/angry-baseball.html</loc>
   </url>
   <url>
@@ -23,13 +26,40 @@
     <loc>https://game-analysis.peteraim.com/glossary.html</loc>
   </url>
   <url>
-    <loc>https://game-analysis.peteraim.com/</loc>
-  </url>
-  <url>
     <loc>https://game-analysis.peteraim.com/methodology.html</loc>
   </url>
   <url>
     <loc>https://game-analysis.peteraim.com/ssd.html</loc>
+  </url>
+  <url>
+    <loc>https://game-analysis.peteraim.com/zh-Hant/</loc>
+  </url>
+  <url>
+    <loc>https://game-analysis.peteraim.com/zh-Hant/angry-baseball.html</loc>
+  </url>
+  <url>
+    <loc>https://game-analysis.peteraim.com/zh-Hant/angry-pig.html</loc>
+  </url>
+  <url>
+    <loc>https://game-analysis.peteraim.com/zh-Hant/authors.html</loc>
+  </url>
+  <url>
+    <loc>https://game-analysis.peteraim.com/zh-Hant/duck-strike.html</loc>
+  </url>
+  <url>
+    <loc>https://game-analysis.peteraim.com/zh-Hant/fake-whiteout-survival.html</loc>
+  </url>
+  <url>
+    <loc>https://game-analysis.peteraim.com/zh-Hant/glossary.html</loc>
+  </url>
+  <url>
+    <loc>https://game-analysis.peteraim.com/zh-Hant/methodology.html</loc>
+  </url>
+  <url>
+    <loc>https://game-analysis.peteraim.com/zh-Hant/ssd.html</loc>
+  </url>
+  <url>
+    <loc>https://game-analysis.peteraim.com/zh-Hant/zombie-survivors.html</loc>
   </url>
   <url>
     <loc>https://game-analysis.peteraim.com/zombie-survivors.html</loc>
