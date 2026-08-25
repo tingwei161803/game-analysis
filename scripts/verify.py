@@ -38,6 +38,9 @@ from playwright.sync_api import (
 # Default per-action timeout (ms). Static sites should respond instantly.
 TIMEOUT_MS = 8000
 
+# Label for the language check, reused by every branch of its verdict.
+LANG_LABEL = "Language survives navigation"
+
 
 # --------------------------------------------------------------------------- #
 # Result tracking
@@ -606,39 +609,71 @@ def check_nav_links(page: Page, base_url: str, results: Results, pages: list[dic
         )
 
 
-@check("Language choice persists across navigation")
+@check("Language survives navigation")
 def check_lang_persist(page: Page, base_url: str, results: Results, pages: list[dict]) -> None:
+    """Choosing a language must still hold after clicking through to another page.
+
+    Two site designs satisfy that promise and this check accepts either.
+
+    * One URL per language (this site): the switch is a real link to the twin
+      URL, and the nav on that page is relative, so every pill stays inside the
+      translated directory. What can regress is an absolute nav href, which
+      would silently bounce a Chinese reader back to English on the next click
+      -- so the assertion is that following a nav link keeps both <html lang>
+      AND the URL prefix.
+    * One URL, in-place switching: the language is stored and re-applied on the
+      next page, so the assertion is just that <html lang> survived the hop.
+    """
     second = next((p for p in pages if p["slug"] != "home"), None)
     if second is None:
-        results.skip("Language choice persists across navigation", "only one page")
+        results.skip(LANG_LABEL, "only one page")
         return
 
     page.goto(base_url, wait_until="networkidle", timeout=TIMEOUT_MS)
     toggle = first_visible(page, ["#langToggle", "button[title='Language']", "button[aria-label*='language' i]"])
     if toggle is None:
-        results.skip("Language choice persists across navigation", "no language toggle")
+        results.skip(LANG_LABEL, "no language toggle")
         return
 
-    before = page.locator("html").get_attribute("lang")
+    before_lang = page.locator("html").get_attribute("lang")
+    before_url = page.url
     toggle.click()
-    page.wait_for_timeout(250)
-    after = page.locator("html").get_attribute("lang")
-    if after == before:
-        results.skip("Language choice persists across navigation", "toggle did not change <html lang>")
+    page.wait_for_load_state("networkidle", timeout=TIMEOUT_MS)
+    after_lang = page.locator("html").get_attribute("lang")
+    if after_lang == before_lang:
+        results.skip(LANG_LABEL, "toggle did not change <html lang>")
         return
 
-    page.goto(f"{base_url}/{second['href']}", wait_until="networkidle", timeout=TIMEOUT_MS)
-    page.wait_for_timeout(200)
-    lang2 = page.locator("html").get_attribute("lang")
-    if lang2 == after:
+    if page.url == before_url:
+        # In-place switcher: the choice has to outlive a normal navigation.
+        page.goto(f"{base_url}/{second['href']}", wait_until="networkidle", timeout=TIMEOUT_MS)
+        landed = page.locator("html").get_attribute("lang")
+        if landed == after_lang:
+            results.ok(LANG_LABEL, f"{before_lang} -> {after_lang}, still {landed} on {second['href']}")
+        else:
+            results.fail(LANG_LABEL, f"set {after_lang} but {second['href']} loaded as {landed}")
+        return
+
+    # One URL per language: follow the site's own nav from the translated page.
+    translated_url = page.url
+    prefix = translated_url[: translated_url.rindex("/") + 1]
+    link = page.locator(f"a.navpill[href$='{second['href']}'], nav a[href$='{second['href']}']").first
+    if not link.count():
+        results.skip(LANG_LABEL, f"no nav link to {second['href']} on {translated_url}")
+        return
+    link.click()
+    page.wait_for_load_state("networkidle", timeout=TIMEOUT_MS)
+    landed_lang = page.locator("html").get_attribute("lang")
+    if landed_lang == after_lang and page.url.startswith(prefix):
         results.ok(
-            "Language choice persists across navigation",
-            f"{before} -> {after}, still {lang2} after navigating to {second['href']}",
+            LANG_LABEL,
+            f"{before_lang} -> {after_lang} via its own URL, still {landed_lang} after nav to {second['href']}",
         )
     else:
         results.fail(
-            "Language choice persists across navigation",
-            f"set {after} but {second['href']} loaded as {lang2}",
+            LANG_LABEL,
+            f"switched to {after_lang} at {translated_url}, but the nav landed on "
+            f"{page.url} as {landed_lang}",
         )
 
 
