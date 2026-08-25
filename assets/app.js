@@ -169,11 +169,11 @@
       var html = "";
       /* hero */
       html += '<section class="hero">' +
-        '<div class="overline"><span>' + esc(t({ en: "Code-level audit · 2026-07", zh: "程式碼級體檢 · 2026-07" })) + "</span></div>" +
-        "<h1>" + esc(t({ en: "Six projects, ", zh: "六個專案，" })) + "<em>" + esc(t({ en: "read line by line", zh: "逐行讀過" })) + "</em>" + esc(t({ en: ".", zh: "。" })) + "</h1>" +
+        '<div class="overline"><span>' + esc(t({ en: "Code-level audit · 2026-07 / 08", zh: "程式碼級體檢 · 2026-07／08" })) + "</span></div>" +
+        "<h1>" + esc(t({ en: "Eight projects, ", zh: "八個專案，" })) + "<em>" + esc(t({ en: "read line by line", zh: "逐行讀過" })) + "</em>" + esc(t({ en: ".", zh: "。" })) + "</h1>" +
         '<p class="lede">' + esc(t({
-          en: "Five AI-built 3D browser games by craig7351 across one 36-day sprint, plus OCF's 22-month security curriculum — each scored on seven dimensions from the source code itself, not the README.",
-          zh: "craig7351 在 36 天衝刺內用 AI 打造的五款 3D 瀏覽器遊戲，加上 OCF 維護 22 個月的資安教材——每一個都從原始碼本身（不是 README）評七大面向。"
+          en: "Five AI-built 3D browser games by craig7351 across one 36-day sprint, OCF's 22-month security curriculum, and two Taiwanese text life-sims that share a designer — each scored on seven dimensions from the source code itself, not the README.",
+          zh: "craig7351 在 36 天衝刺內用 AI 打造的五款 3D 瀏覽器遊戲、OCF 維護 22 個月的資安教材，加上兩款共用同一位設計者的台灣純文字人生模擬——每一個都從原始碼本身（不是 README）評七大面向。"
         })) + "</p>" +
         '<p class="small" style="margin:-16px 0 26px;max-width:62ch">' + esc(t({
           en: "These projects are the work of their original authors. This site is an independent third-party analysis — every project links back to its original repository and author below.",
@@ -208,7 +208,7 @@
 
       /* project entries */
       html += '<section class="section"><div class="overline"><span>' + esc(t({ en: "Deep dives", zh: "深度分析" })) + "</span></div>" +
-        "<h2>" + esc(t({ en: "The projects", zh: "六個專案" })) + "</h2>" +
+        "<h2>" + esc(t({ en: "The projects", zh: "八個專案" })) + "</h2>" +
         '<p class="section-sub">' + esc(t({ en: "Open any project for its full seven-dimension report, highlights, weaknesses and evidence.", zh: "點開任一專案看完整七面向報告、亮點、弱點與證據。" })) + "</p>" +
         '<div class="entry-grid" id="entryGrid"></div></section>';
 
@@ -436,22 +436,22 @@
 
     /* ---------- AUTHORS ---------- */
     R.authors = function () {
-      var craig = AUTHORS.craig7351, ocf = AUTHORS.ocf;
+      var authorList = Object.keys(AUTHORS).map(function (k) { return AUTHORS[k]; });
       var craigGames = PROJECTS.filter(function (p) { return p.author === "craig7351"; });
       var html = "";
 
       html += '<section class="hero" style="padding-top:20px">' +
-        '<div class="overline"><span>' + esc(t({ en: "Two authors", zh: "兩位作者" })) + "</span></div>" +
-        "<h1>" + esc(t({ en: "Two ways to ship", zh: "兩種出貨方式" })) + "</h1>" +
-        '<p class="lede">' + esc(t({ en: "The same era, the same AI-assisted tooling, radically different philosophies — one optimizing for velocity, the other for continuity.", zh: "同一個時代、同樣的 AI 輔助工具，卻是截然不同的哲學——一個最佳化速度，一個最佳化延續性。" })) + "</p></section>";
+        '<div class="overline"><span>' + esc(t({ en: "Four authors", zh: "四位作者" })) + "</span></div>" +
+        "<h1>" + esc(t({ en: "Four ways to ship", zh: "四種出貨方式" })) + "</h1>" +
+        '<p class="lede">' + esc(t({ en: "The same era, the same AI-assisted tooling, four different philosophies — one optimizing for velocity, one for institutional continuity, one for measured balance, and one that inherited a format and re-skinned it.", zh: "同一個時代、同樣的 AI 輔助工具，卻是四種哲學——一個最佳化速度、一個最佳化制度延續性、一個最佳化可量測的平衡，還有一個繼承既有格式再換皮。" })) + "</p></section>";
 
       /* profiles */
       html += '<section class="section"><div class="author-grid" id="authorGrid"></div></section>';
 
       /* radar compare */
       html += '<section class="section"><div class="overline"><span>' + esc(t({ en: "Head to head", zh: "正面對決" })) + "</span></div>" +
-        "<h2>" + esc(t({ en: "Author averages, overlaid", zh: "兩位作者平均分疊圖" })) + "</h2>" +
-        '<p class="section-sub">' + esc(t({ en: "craig7351 = mean of five games; OCF = its single project. The overlap tells the story: craig leads on completeness and game feel, OCF on originality, content and security.", zh: "craig7351＝五款遊戲平均；OCF＝其單一專案。重疊處說明一切：craig 在完成度與手感領先，OCF 在原創性、內容與安全領先。" })) + "</p>" +
+        "<h2>" + esc(t({ en: "Author averages, overlaid", zh: "四位作者平均分疊圖" })) + "</h2>" +
+        '<p class="section-sub">' + esc(t({ en: "craig7351 = mean of five games; every other author = their single project. The overlaps tell the story: craig leads on completeness and game feel, OCF on content and security posture, LeoGGcat on design and code quality — and every one of them collapses on testing.", zh: "craig7351＝五款遊戲平均；其餘作者＝各自的單一專案。重疊處說明一切：craig 在完成度與手感領先，OCF 在內容與安全姿態領先，LeoGGcat 在設計與程式品質領先——而四位在測試上全部塌陷。" })) + "</p>" +
         '<div class="card viz"><div style="max-width:460px;margin:0 auto" id="cmpRadar"></div><div class="legend" id="cmpLegend"></div></div></section>';
 
       /* timeline */
@@ -464,7 +464,7 @@
 
       /* author cards */
       var ag = document.getElementById("authorGrid");
-      [craig, ocf].forEach(function (au) {
+      authorList.forEach(function (au) {
         var mine = PROJECTS.filter(function (p) { return p.author === au.key; });
         var avg = mine.reduce(function (s, p) { return s + total(p); }, 0) / mine.length;
         var commits = mine.reduce(function (s, p) { return s + p.commits; }, 0);
@@ -494,10 +494,9 @@
         });
         return o;
       }
-      var cmpList = [
-        { scores: avgScores("craig7351"), color: authorColor("craig7351"), name: craig.name },
-        { scores: avgScores("ocf"), color: authorColor("ocf"), name: ocf.name }
-      ];
+      var cmpList = authorList.map(function (au) {
+        return { scores: avgScores(au.key), color: authorColor(au.key), name: au.name };
+      });
       document.getElementById("cmpRadar").innerHTML = radarCompareSVG(cmpList, 400);
       document.getElementById("cmpLegend").innerHTML = cmpList.map(function (c) {
         return '<span><i style="background:' + c.color + '"></i>' + esc(t(c.name)) + "</span>";

@@ -4,8 +4,8 @@
 window.SITE_META = {
   title: { en: "Game Project Report Card", zh: "遊戲專案評分報告" },
   subtitle: {
-    en: "Six repos · seven dimensions · two authors — a code-level audit",
-    zh: "六個專案 × 七大面向 × 兩位作者的程式碼級深度分析"
+    en: "Eight repos · seven dimensions · four authors — a code-level audit",
+    zh: "八個專案 × 七大面向 × 四位作者的程式碼級深度分析"
   },
   repo: "tingwei161803/game-analysis"
 };
@@ -59,6 +59,34 @@ window.GA_AUTHORS = {
       { en: "Where the solo author optimizes for velocity, OCF optimizes for continuity and audience fit: written editorial rules, a policy template mapped to Taiwanese NGO governance, Tor access for at-risk users — and a late-2026 burst that quietly added a 7,600-line 3D teaching game.",
         zh: "個人作者最佳化的是速度，OCF 最佳化的是延續性與受眾適配：明文寫作規範、貼合台灣 NGO 治理的政策範本、給高風險使用者的 Tor 管道——以及 2026 年中悄悄加入的 7,600 行 3D 教學遊戲。" }
     ]
+  },
+  leoggcat: {
+    key: "leoggcat", color: "s4",
+    name: { en: "Leo Chang · 最先生 (LeoGGcat)", zh: "Leo Chang・最先生（LeoGGcat）" },
+    type: { en: "Solo creator + collaborator + AI", zh: "個人創作者＋協作者＋AI" },
+    url: "https://github.com/LeoGGcat",
+    profile: [
+      { en: "One game, **18 consecutive days**, 267 commits and 32 released versions (2026-08-07 → 08-24) — a text-only Taiwanese baseball career sim shipped on its own domain as an installable PWA. The workflow is a hybrid no other author here uses: the owner (credited in-game as 最先生 Mr.TheMost) directs design, a second developer contributes through pull requests, and Claude is the commit author on 39 commits and co-signs 30 more.",
+        zh: "一款遊戲、**連續 18 天**、267 個 commit、32 個發布版本（2026-08-07 → 08-24）——一款純文字的台灣棒球生涯模擬，上線於自有網域且可安裝為 PWA。它的工作流是本站其他作者都沒有的混合體：擁有者（遊戲內署名最先生 Mr.TheMost）主導設計、第二位開發者以 pull request 貢獻，Claude 則是 39 個 commit 的作者、另共同署名 30 個。" },
+      { en: "The signature is measurement. Balance is not tuned by feel but re-derived from full-flow Monte Carlo runs — thousands of simulated careers used first to prove the old Hall-of-Fame thresholds were mathematically unreachable, then to re-anchor the whole ladder to explicit population targets. The code carries the same habit: comments justify decisions with numbers (contrast ratios, measured season counts, surgery frequencies) instead of restating what the line does.",
+        zh: "招牌是量測。平衡不是靠手感調，而是用完整流程的蒙地卡羅重新推導——上千段模擬生涯先證明舊的名人堂門檻在數學上走不到，再把整條階梯重新錨定到明確的母體目標。程式碼帶著同一個習慣：註解用數字（對比度、實測球季場次、動刀頻率）替決策辯護，而不是複述那行在做什麼。" },
+      { en: "Consistent strengths: domain-modelling depth, comment quality and product-grade finish (four themes, PWA, share card, wiki, changelog). Consistent debts: no tests, no CI, a calibration harness that never entered the repository, and 173 hand-maintained cache-bust tokens standing in for a build step.",
+        zh: "穩定強項：領域模型的深度、註解品質，以及產品級的完成度（四種佈景、PWA、分享卡、wiki、更新日誌）。穩定債務：無測試、無 CI、校準工具始終沒進 repo，以及用 173 個手動維護的 cache-bust token 代替建置流程。" }
+    ]
+  },
+  jarvanthevoyager: {
+    key: "jarvanthevoyager", color: "s3",
+    name: { en: "jarvanthevoyager", zh: "jarvanthevoyager" },
+    type: { en: "Solo producer, borrowed format", zh: "個人製作人・沿用既有格式" },
+    url: "https://github.com/jarvanthevoyager",
+    profile: [
+      { en: "One game in a single 3,500-line HTML file, published through the GitHub web UI in 17 commits across four days — 'Add files via upload', 'Update index.html'. That history is therefore not a development history at all: the work happened off-platform, and the artifact is the only evidence of how it was built.",
+        zh: "一款遊戲，裝在單一 3,500 行的 HTML 檔裡，透過 GitHub 網頁介面在四天內以 17 個 commit 發布——「Add files via upload」「Update index.html」。所以這份歷史根本不是開發歷史：工作發生在平台之外，成品本身是唯一的建構證據。" },
+      { en: "The README credits the original concept to 最先生 (@mr.themost) — the designer behind YaKyoLife. This is a format handed to a second producer: the same seeded-life chassis re-skinned onto cheer-squad careers, a subject with no obvious prior example. What the producer adds is output discipline (consistent escaping, cookieless analytics, a documented storage table) and the audit's only shipped integrity checker.",
+        zh: "README 把原創概念署名給最先生（@mr.themost）——YaKyoLife 背後的設計者。這是把格式交給第二位製作人：同一副種子化人生的底盤，換皮到啦啦隊生涯這個找不到明顯前例的題材上。製作人加上去的是輸出紀律（一致的跳脫、無 cookie 的流量統計、附上儲存鍵表格），以及全站唯一有出貨的完整性檢查器。" },
+      { en: "The trade-off is legibility and provenance: one global scope holding 131 top-level functions, documentation that has drifted from the build (stale counts, three broken links, a licence badged but absent), and balance argued by observation where the sibling project argues by simulation.",
+        zh: "代價是可讀性與來源可追溯性：單一全域作用域塞著 131 個頂層函式、文件已與 build 脫節（數字過期、三個壞連結、授權有徽章卻沒檔案），以及在姊妹作用模擬論證平衡的地方，這裡只能用觀察論證。" }
+    ]
   }
 };
 
@@ -76,19 +104,22 @@ window.GA_METHOD = {
     zh: "技術深度與遊戲設計權重最高（各 20%），因為它們定義一款遊戲「是什麼」；後端安全與程式品質（各 15%）決定它接觸真實使用者後能不能活下來；測試、完成度、原創性（各 10%）補完整體健檢。加權總分由各面向分數即時計算——改一個分數總分就跟著變。"
   },
   process: [
-    { en: "**Full clone, full history.** All six repositories were cloned with complete git history; commit timelines, authorship and cadence were analyzed alongside the code.", zh: "**完整 clone、完整歷史。**六個 repo 全數 clone 含完整 git 歷史；commit 時間軸、署名與節奏與程式碼一併分析。" },
+    { en: "**Full clone, full history.** All eight repositories were cloned with complete git history; commit timelines, authorship and cadence were analyzed alongside the code.", zh: "**完整 clone、完整歷史。**八個 repo 全數 clone 含完整 git 歷史；commit 時間軸、署名與節奏與程式碼一併分析。" },
     { en: "**Source-level review, not README-level.** Every project's core game logic, backend functions, database schemas, security mechanisms, tests and build configs were read directly. Every claim in this report cites a file (and usually a line range) as evidence.", zh: "**讀原始碼，不是讀 README。**每個專案的核心遊戲邏輯、後端 functions、資料庫 schema、安全機制、測試與建置設定都被直接閱讀。報告中每個論斷都引用具體檔案（多附行號）為證。" },
-    { en: "**One rubric, cross-calibrated.** All six projects were scored on the same 1–10 anchors by parallel reviewers using an identical brief, then cross-checked so a '7' means the same thing everywhere. For the one non-game (ssd), the Game Design dimension was re-scoped to Content & Pedagogy.", zh: "**同一規準、交叉校準。**六個專案由平行審查以完全相同的評分規準與指示打 1–10 分，再交叉校準確保每個「7 分」意義一致。唯一的非遊戲專案（ssd）將「遊戲設計」面向改評「內容／教學設計」。" },
-    { en: "**Live verification.** On 2026-07-20 all eleven public URLs (six deployments, intro pages, and the embedded game) were checked — every one returned HTTP 200. All six projects are live.", zh: "**現況查核。**2026-07-20 檢查全部 11 個公開網址（六個部署、介紹頁、嵌入式遊戲）——全數回應 HTTP 200，六個專案都活著。" }
+    { en: "**One rubric, cross-calibrated.** All eight projects were scored on the same 1–10 anchors by parallel reviewers using an identical brief, then cross-checked so a '7' means the same thing everywhere. For the one non-game (ssd), the Game Design dimension was re-scoped to Content & Pedagogy.", zh: "**同一規準、交叉校準。**六個專案由平行審查以完全相同的評分規準與指示打 1–10 分，再交叉校準確保每個「7 分」意義一致。唯一的非遊戲專案（ssd）將「遊戲設計」面向改評「內容／教學設計」。" },
+    { en: "**Live verification.** On 2026-07-20 all eleven public URLs of the first six projects (deployments, intro pages and the embedded game) were checked, and on 2026-08-25 the two life-sims' deployments were checked the same way — every one returned HTTP 200. All eight projects are live.", zh: "**現況查核。**2026-07-20 檢查前六個專案的全部 11 個公開網址（部署、介紹頁、嵌入式遊戲），2026-08-25 以同樣方式檢查兩款人生模擬的部署——全數回應 HTTP 200，八個專案都活著。" }
   ],
   verification: [
     { en: "Genre context: 'Vampire Survivors–like' is a recognized subgenre with its own Wikipedia entry; 3D takes on the formula (e.g. Megabonk, 2025, one million copies in two weeks) are an established trend — context for zombie-survivors' originality score.", zh: "類型背景：「Vampire Survivors–like」是有維基百科條目的公認子類型；3D 化（如 2025 年兩週賣百萬套的 Megabonk）已是既定趨勢——這是 zombie-survivors 原創性評分的脈絡。", url: "https://en.wikipedia.org/wiki/Vampire_Survivors%E2%80%93like" },
-    { en: "Ad-fakery context: the gap between Whiteout Survival's ads and its real gameplay is widely documented (the 'ads vs gameplay' genre of coverage) — the exact phenomenon fake-whiteout-survival satirizes by building the fake game for real.", zh: "假廣告背景：《寒霜啟示錄》廣告與實際玩法的落差被大量記錄（「ads vs gameplay」型內容）——fake-whiteout-survival 正是把這個現象反諷地做成真遊戲。", url: "https://www.youtube.com/watch?v=KVdaXHUnRw0" }
+    { en: "Ad-fakery context: the gap between Whiteout Survival's ads and its real gameplay is widely documented (the 'ads vs gameplay' genre of coverage) — the exact phenomenon fake-whiteout-survival satirizes by building the fake game for real.", zh: "假廣告背景：《寒霜啟示錄》廣告與實際玩法的落差被大量記錄（「ads vs gameplay」型內容）——fake-whiteout-survival 正是把這個現象反諷地做成真遊戲。", url: "https://www.youtube.com/watch?v=KVdaXHUnRw0" },
+    { en: "Shared authorship, checked in the data: CheerLife's README credits its original concept to 最先生 (@mr.themost), the same name on YaKyoLife's title screen — and `mr.themost <ja42022@gmail.com>` appears as a committer in YaKyoLife's git history, sharing an email address with that repository's owner account. The two games are treated in this report as one design lineage on that basis.", zh: "共同作者關係，用資料查核過：CheerLife 的 README 把原創概念署名給最先生（@mr.themost），與 YaKyoLife 片頭署名同一人——而 `mr.themost <ja42022@gmail.com>` 出現在 YaKyoLife 的 git 歷史中，與該 repo 擁有者帳號共用同一個 email。本報告據此把兩款遊戲視為同一條設計血脈。" }
   ],
   limits: [
     { en: "This is a static, code-level audit: nobody profiled frame rates or fuzzed the APIs. Runtime claims (e.g. 'dead code never triggers') come from reading control flow, not instrumentation.", zh: "這是靜態的程式碼級體檢：沒有實測 FPS、沒有 fuzz API。運行期論斷（如「死程式碼不會觸發」）來自控制流閱讀，非動態量測。" },
     { en: "Scores are calibrated judgments, not measurements. The rubric and evidence are public precisely so you can disagree with a number and check the reasoning behind it.", zh: "分數是校準過的判斷，不是量測值。規準與證據全部公開，就是為了讓你可以不同意某個分數、並檢驗它背後的推理。" },
     { en: "Security findings are reported for defensive awareness. The leaked keys described here protect message boards on free hobby games; they are cited as hygiene lessons, not as an invitation.", zh: "安全發現以防禦意識為目的呈現。文中的洩漏密鑰保護的是免費小遊戲的留言板；引用它們是為了衛生課，不是邀請函。" },
+    { en: "Commit counts are not comparable across projects. CheerLife was published entirely through the GitHub web UI, so its 17 commits are upload events, not development history; its real iteration happened off-platform and cannot be read from git at all.", zh: "commit 數在專案之間不可比較。CheerLife 全程透過 GitHub 網頁介面發布，那 17 個 commit 是上傳事件而非開發歷史；它真正的迭代發生在平台之外，完全無法從 git 讀出。" },
+    { en: "Two audit dates, not one. The first six projects describe commits as of 2026-07-20; yakyulife and CheerLife were audited on 2026-08-25 and describe their state on that date.", zh: "有兩個受檢日期，不是一個。前六個專案描述的是 2026-07-20 的 commit；yakyulife 與 CheerLife 於 2026-08-25 受檢，描述的是該日的狀態。" },
     { en: "One snapshot in time (2026-07-20). Repositories move; scores describe the audited commits, not the future.", zh: "單一時間點快照（2026-07-20）。repo 會前進；分數描述的是受檢的 commit，不是未來。" }
   ]
 };
@@ -148,7 +179,17 @@ window.GA_GLOSSARY = [
   { term: { en: "Tor onion service", zh: "Tor onion service" }, cat: "Ops",
     def: { en: "Hosting a site inside the Tor network for anonymous, censorship-resistant access. ssd serves its curriculum over an onion address and advertises it with per-page onion-location headers — practicing what it teaches.", zh: "把網站架在 Tor 網路內提供匿名、抗審查存取。ssd 以 onion 位址提供教材並在每頁送出 onion-location header——身體力行它教的東西。" } },
   { term: { en: "MkDocs (Material)", zh: "MkDocs（Material）" }, cat: "Ops",
-    def: { en: "A Python static-site generator for documentation. ssd extends it unusually far: custom build hooks, 12 template overrides, a privacy plugin localizing third-party assets, and llms.txt output.", zh: "Python 文件靜態網站產生器。ssd 把它延伸得異常遠：自訂 build hook、12 個模板 override、將第三方資產本地化的 privacy 外掛、llms.txt 輸出。" } }
+    def: { en: "A Python static-site generator for documentation. ssd extends it unusually far: custom build hooks, 12 template overrides, a privacy plugin localizing third-party assets, and llms.txt output.", zh: "Python 文件靜態網站產生器。ssd 把它延伸得異常遠：自訂 build hook、12 個模板 override、將第三方資產本地化的 privacy 外掛、llms.txt 輸出。" } },
+  { term: { en: "Seeded PRNG", zh: "種子化亂數（seeded PRNG）" }, cat: "Quality",
+    def: { en: "A deterministic pseudo-random generator whose whole sequence is fixed by one starting string, so the same seed plus the same choices replays an identical run. Both life-sims use a mulberry32-style generator this way, which turns the seed into a shareable artifact — and makes bug reports reproducible from a seed plus a choice list.", zh: "決定性的偽亂數產生器：整段序列由一個起始字串決定，因此相同種子＋相同選擇會重播出完全相同的一輪。兩款人生模擬都以 mulberry32 式產生器這樣使用，讓種子本身成為可分享物——也讓 bug 回報只要附上種子與選擇序列就能重現。" } },
+  { term: { en: "Monte Carlo balance calibration", zh: "蒙地卡羅平衡校準" }, cat: "Quality",
+    def: { en: "Tuning a game by simulating thousands of complete playthroughs and reading the resulting distribution, rather than by feel. yakyulife re-anchored its whole career-evaluation ladder this way — targeting 'Hall of Fame = 15% of all players' — after simulation showed the old thresholds sat above any reachable player.", zh: "以模擬上千段完整流程、讀取結果分布的方式調整平衡，而不是靠手感。yakyulife 用這個方法把整條生涯評價階梯重新錨定——目標是「名人堂＝全部玩家的 15%」——因為模擬顯示舊門檻高過任何玩家可達到的上限。" } },
+  { term: { en: "Positional adjustment", zh: "守位調整（positional adjustment）" }, cat: "Genre",
+    def: { en: "A sabermetric correction that credits harder defensive positions (catcher, shortstop) and debits easier ones (first base, DH) when comparing player value. yakyulife implements it in run units and rescales it to each league's real season length instead of a hardcoded 162 games.", zh: "賽伯計量學的修正：比較球員價值時，替難守的位置（捕手、游擊）加分、替好守的位置（一壘、指定打擊）扣分。yakyulife 以「失分」為單位實作，並依各聯盟真實球季場次縮放，而不是寫死 162 場。" } },
+  { term: { en: "Reflected HTML injection", zh: "反射型 HTML 注入" }, cat: "Backend",
+    def: { en: "When a value taken from the URL is written into the page as markup instead of text, a crafted link can inject elements into another visitor's page. yakyulife reads `?seed=` unsanitized and renders it through an `innerHTML` assignment on the retirement screen — the same feature built for sharing links.", zh: "當來自網址的值被當成標記（而非文字）寫進頁面時，構造過的連結就能把元素注入到另一位訪客的頁面。yakyulife 未消毒地讀取 `?seed=`，並在引退畫面經由 `innerHTML` 賦值渲染它——正是為分享連結而做的那個功能。" } },
+  { term: { en: "Cache-bust token", zh: "cache-bust token" }, cat: "Ops",
+    def: { en: "A version string appended to an asset URL (`?v=1.5.8`) so a CDN or browser cannot serve a stale copy. yakyulife applies one to every ES-module import specifier — 173 of them — which guarantees a consistent module graph but has to be updated by hand at every release.", zh: "附加在資源網址後的版本字串（`?v=1.5.8`），讓 CDN 或瀏覽器無法回舊檔。yakyulife 把它加在每一個 ES module 的 import 指定符上——共 173 個——這保證了模組圖版本一致，但每次發版都得手動更新。" } }
 ];
 
 /* Page registry — one entry per .html page */
@@ -168,6 +209,10 @@ window.SITE_PAGES = [
     title: { en: "Angry Baseball", zh: "憤怒棒球" } },
   { slug: "ssd", layout: "project", icon: "shield", project: "ssd",
     title: { en: "OCF · SSD", zh: "OCF 資安新手村" } },
+  { slug: "yakyulife", layout: "project", icon: "sports_baseball", project: "yakyulife",
+    title: { en: "YaKyoLife", zh: "YaKyoLife 棒球人生" } },
+  { slug: "cheerlife", layout: "project", icon: "celebration", project: "cheerlife",
+    title: { en: "CheerLife", zh: "CheerLife 啦啦隊人生" } },
   { slug: "authors", layout: "authors", icon: "group",
     title: { en: "Authors", zh: "作者對比" },
     subtitle: { en: "Two very different ways to ship software", zh: "兩種截然不同的出貨方式" } },
