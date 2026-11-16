@@ -163,21 +163,21 @@
       var maxTotal = 10;
       var craigGames = PROJECTS.filter(function (p) { return p.author === "craig7351"; });
       var avgCraig = craigGames.reduce(function (s, p) { return s + total(p); }, 0) / craigGames.length;
-      var totalCommits = PROJECTS.reduce(function (s, p) { return s + p.commits; }, 0);
+      var totalCommits = PROJECTS.reduce(function (s, p) { return s + (p.commits || 0); }, 0);
       var totalLoc = PROJECTS.reduce(function (s, p) { return s + p.loc; }, 0);
 
       var html = "";
       /* hero */
       html += '<section class="hero">' +
-        '<div class="overline"><span>' + esc(t({ en: "Code-level audit · 2026-07 / 08", zh: "程式碼級體檢 · 2026-07／08" })) + "</span></div>" +
-        "<h1>" + esc(t({ en: "Eight projects, ", zh: "八個專案，" })) + "<em>" + esc(t({ en: "read line by line", zh: "逐行讀過" })) + "</em>" + esc(t({ en: ".", zh: "。" })) + "</h1>" +
+        '<div class="overline"><span>' + esc(t({ en: "Code-level audit · 2026-07 → 11", zh: "程式碼級體檢 · 2026-07 → 11" })) + "</span></div>" +
+        "<h1>" + esc(t({ en: "Eleven projects, ", zh: "十一個專案，" })) + "<em>" + esc(t({ en: "read line by line", zh: "逐行讀過" })) + "</em>" + esc(t({ en: ".", zh: "。" })) + "</h1>" +
         '<p class="lede">' + esc(t({
-          en: "Five AI-built 3D browser games by craig7351 across one 36-day sprint, OCF's 22-month security curriculum, and two Taiwanese text life-sims that share a designer — each scored on seven dimensions from the source code itself, not the README.",
-          zh: "craig7351 在 36 天衝刺內用 AI 打造的五款 3D 瀏覽器遊戲、OCF 維護 22 個月的資安教材，加上兩款共用同一位設計者的台灣純文字人生模擬——每一個都從原始碼本身（不是 README）評七大面向。"
+          en: "Five AI-built 3D browser games by craig7351 across one 36-day sprint, OCF's 22-month security curriculum, two Taiwanese text life-sims that share a designer, and three closed-source Taiwanese web games read from the code they ship — each scored on seven dimensions from the code itself, not the README.",
+          zh: "craig7351 在 36 天衝刺內用 AI 打造的五款 3D 瀏覽器遊戲、OCF 維護 22 個月的資安教材，兩款共用同一位設計者的台灣純文字人生模擬，再加上三款原始碼不公開、改從出貨程式讀起的台灣網頁遊戲——每一個都從程式碼本身（不是 README）評七大面向。"
         })) + "</p>" +
         '<p class="small" style="margin:-16px 0 26px;max-width:62ch">' + esc(t({
-          en: "These projects are the work of their original authors. This site is an independent third-party analysis — every project links back to its original repository and author below.",
-          zh: "這些專案皆為原作者的作品。本站是獨立的第三方分析——下方每個專案都連回其原始 repo 與作者。"
+          en: "These projects are the work of their original authors. This site is an independent third-party analysis — every project links back to its original repository (or, where none is public, its live site) and author below.",
+          zh: "這些專案皆為原作者的作品。本站是獨立的第三方分析——下方每個專案都連回其原始 repo（沒有公開 repo 的則連回線上站台）與作者。"
         })) + "</p>" +
         '<div class="statband">' +
           stat(PROJECTS.length, { en: "projects audited", zh: "受檢專案" }) +
@@ -208,7 +208,7 @@
 
       /* project entries */
       html += '<section class="section"><div class="overline"><span>' + esc(t({ en: "Deep dives", zh: "深度分析" })) + "</span></div>" +
-        "<h2>" + esc(t({ en: "The projects", zh: "八個專案" })) + "</h2>" +
+        "<h2>" + esc(t({ en: "The projects", zh: "十一個專案" })) + "</h2>" +
         '<p class="section-sub">' + esc(t({ en: "Open any project for its full seven-dimension report, highlights, weaknesses and evidence.", zh: "點開任一專案看完整七面向報告、亮點、弱點與證據。" })) + "</p>" +
         '<div class="entry-grid" id="entryGrid"></div></section>';
 
@@ -302,8 +302,11 @@
           '</div>' +
           '<div style="display:flex;flex-wrap:wrap;gap:8px;padding-left:22px">';
         mine.forEach(function (p) {
-          ch += '<a class="tag" href="https://github.com/' + esc(p.repo) + '" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:5px">' +
-            '<span class="material-symbols-rounded" style="font-size:15px">code</span>' + esc(p.repo) + '</a>';
+          /* No public repo → credit the live site itself, never a made-up GitHub URL. */
+          var creditHref = p.repo ? "https://github.com/" + p.repo : p.demo;
+          var creditText = p.repo ? p.repo : p.demo.replace(/^https?:\/\//, "").replace(/\/$/, "");
+          ch += '<a class="tag" href="' + esc(creditHref) + '" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:5px">' +
+            '<span class="material-symbols-rounded" style="font-size:15px">' + (p.repo ? "code" : "public") + '</span>' + esc(creditText) + '</a>';
         });
         ch += "</div></div>";
       });
@@ -334,7 +337,7 @@
         '<div class="proj-links">';
       html += linkBtn(p.demo, "play_circle", { en: "Live demo", zh: "線上遊玩" });
       if (p.intro) html += linkBtn(p.intro, "article", { en: "Intro page", zh: "介紹頁" });
-      html += linkBtn("https://github.com/" + p.repo, "code", { en: "Source", zh: "原始碼" });
+      if (p.repo) html += linkBtn("https://github.com/" + p.repo, "code", { en: "Source", zh: "原始碼" });
       html += "</div></section>";
 
       /* scorecard */
@@ -414,15 +417,19 @@
 
       /* facts */
       var ft = document.getElementById("factsTbl");
+      /* Closed-source projects have no git history to count; say so rather than print 0. */
+      var unknown = t({ en: "Unknown (no public repo)", zh: "不明（無公開 repo）" });
       var rows = [
         [{ en: "Stack", zh: "技術棧" }, p.stack.join(" · ")],
         [{ en: "Genre", zh: "類型" }, t(p.genre)],
         [{ en: "Period", zh: "開發期間" }, p.period],
-        [{ en: "Active dev days", zh: "實際開發天數" }, p.devDays + (state.lang === "zh" ? " 天" : " days")],
-        [{ en: "Commits", zh: "Commit 數" }, String(p.commits)],
-        [{ en: "Lines of code", zh: "程式碼行數" }, "~" + p.loc.toLocaleString()],
+        [{ en: "Active dev days", zh: "實際開發天數" }, p.devDays == null ? unknown : p.devDays + (state.lang === "zh" ? " 天" : " days")],
+        [{ en: "Commits", zh: "Commit 數" }, p.commits == null ? unknown : String(p.commits)],
+        [p.repo ? { en: "Lines of code", zh: "程式碼行數" } : { en: "Lines shipped", zh: "出貨行數" }, "~" + p.loc.toLocaleString()],
         [{ en: "Author", zh: "作者" }, t(author.name)]
       ];
+      /* Open-source projects already have a Source button in the header; only the closed ones need the row. */
+      if (!p.repo) rows.push([{ en: "Source", zh: "原始碼" }, t({ en: "Not public — read from the shipped build", zh: "未公開——依線上出貨的程式分析" })]);
       rows.forEach(function (r) {
         var tr = document.createElement("tr");
         tr.innerHTML = "<th>" + esc(t(r[0])) + "</th><td>" + esc(r[1]) + "</td>";
@@ -441,17 +448,17 @@
       var html = "";
 
       html += '<section class="hero" style="padding-top:20px">' +
-        '<div class="overline"><span>' + esc(t({ en: "Four authors", zh: "四位作者" })) + "</span></div>" +
-        "<h1>" + esc(t({ en: "Four ways to ship", zh: "四種出貨方式" })) + "</h1>" +
-        '<p class="lede">' + esc(t({ en: "The same era, the same AI-assisted tooling, four different philosophies — one optimizing for velocity, one for institutional continuity, one for measured balance, and one that inherited a format and re-skinned it.", zh: "同一個時代、同樣的 AI 輔助工具，卻是四種哲學——一個最佳化速度、一個最佳化制度延續性、一個最佳化可量測的平衡，還有一個繼承既有格式再換皮。" })) + "</p></section>";
+        '<div class="overline"><span>' + esc(t({ en: "Seven authors", zh: "七位作者" })) + "</span></div>" +
+        "<h1>" + esc(t({ en: "Seven ways to ship", zh: "七種出貨方式" })) + "</h1>" +
+        '<p class="lede">' + esc(t({ en: "The same era, the same AI-assisted tooling, seven different philosophies — one optimizing for velocity, one for institutional continuity, one for measured balance, one that inherited a format and re-skinned it, and three that keep their source private while running a live game: tuned from telemetry, run as a hardened service, or logged in the open inside a single file.", zh: "同一個時代、同樣的 AI 輔助工具，卻是七種哲學——一個最佳化速度、一個最佳化制度延續性、一個最佳化可量測的平衡、一個繼承既有格式再換皮，還有三個不公開原始碼、卻各自營運著一款線上遊戲：用遙測調校的、當成加固過的服務來跑的，以及把一切攤開記在單一檔案裡的。" })) + "</p></section>";
 
       /* profiles */
       html += '<section class="section"><div class="author-grid" id="authorGrid"></div></section>';
 
       /* radar compare */
       html += '<section class="section"><div class="overline"><span>' + esc(t({ en: "Head to head", zh: "正面對決" })) + "</span></div>" +
-        "<h2>" + esc(t({ en: "Author averages, overlaid", zh: "四位作者平均分疊圖" })) + "</h2>" +
-        '<p class="section-sub">' + esc(t({ en: "craig7351 = mean of five games; every other author = their single project. The overlaps tell the story: craig leads on completeness and game feel, OCF on content and security posture, LeoGGcat on design and code quality — and every one of them collapses on testing.", zh: "craig7351＝五款遊戲平均；其餘作者＝各自的單一專案。重疊處說明一切：craig 在完成度與手感領先，OCF 在內容與安全姿態領先，LeoGGcat 在設計與程式品質領先——而四位在測試上全部塌陷。" })) + "</p>" +
+        "<h2>" + esc(t({ en: "Author averages, overlaid", zh: "七位作者平均分疊圖" })) + "</h2>" +
+        '<p class="section-sub">' + esc(t({ en: "craig7351 = mean of five games; every other author = their single project. The overlaps tell the story: craig leads on completeness and game feel, OCF on content and security posture, LeoGGcat on design and code quality, and the three closed-source games on technical depth and completeness — and every one of them is weakest on testing.", zh: "craig7351＝五款遊戲平均；其餘作者＝各自的單一專案。重疊處說明一切：craig 在完成度與手感領先，OCF 在內容與安全姿態領先，LeoGGcat 在設計與程式品質領先，三款不公開原始碼的遊戲則在技術深度與完成度領先——而七位最弱的一項全都是測試。" })) + "</p>" +
         '<div class="card viz"><div style="max-width:460px;margin:0 auto" id="cmpRadar"></div><div class="legend" id="cmpLegend"></div></div></section>';
 
       /* timeline */
@@ -467,7 +474,7 @@
       authorList.forEach(function (au) {
         var mine = PROJECTS.filter(function (p) { return p.author === au.key; });
         var avg = mine.reduce(function (s, p) { return s + total(p); }, 0) / mine.length;
-        var commits = mine.reduce(function (s, p) { return s + p.commits; }, 0);
+        var commits = mine.reduce(function (s, p) { return s + (p.commits || 0); }, 0);
         var loc = mine.reduce(function (s, p) { return s + p.loc; }, 0);
         var card = document.createElement("div");
         card.className = "card author-card";
