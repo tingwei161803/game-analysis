@@ -4,8 +4,8 @@
 window.SITE_META = {
   title: { en: "Game Project Report Card", zh: "遊戲專案評分報告" },
   subtitle: {
-    en: "Eight repos · seven dimensions · four authors — a code-level audit",
-    zh: "八個專案 × 七大面向 × 四位作者的程式碼級深度分析"
+    en: "Eleven projects · seven dimensions · seven authors — a code-level audit",
+    zh: "十一個專案 × 七大面向 × 七位作者的程式碼級深度分析"
   },
   repo: "tingwei161803/game-analysis"
 };
@@ -87,6 +87,48 @@ window.GA_AUTHORS = {
       { en: "The trade-off is legibility and provenance: one global scope holding 131 top-level functions, documentation that has drifted from the build (stale counts, three broken links, a licence badged but absent), and balance argued by observation where the sibling project argues by simulation.",
         zh: "代價是可讀性與來源可追溯性：單一全域作用域塞著 131 個頂層函式、文件已與 build 脫節（數字過期、三個壞連結、授權有徽章卻沒檔案），以及在姊妹作用模擬論證平衡的地方，這裡只能用觀察論證。" }
     ]
+  },
+  aioo: {
+    key: "aioo", color: "s5",
+    name: { en: "aioo", zh: "aioo" },
+    type: { en: "Solo creator, closed source", zh: "個人創作者・原始碼不公開" },
+    url: "https://aioo.tw/",
+    profile: [
+      { en: "One of a run of small browser games published under a single pen name, with no repository, no licence and no real name attached. This one went from 0.1.0 to 0.1.29 in **four days** (2026-11-10 → 11-13), seventeen of those releases on a single day, each described in an in-game changelog written for players.",
+        zh: "以同一個筆名發表的一系列小型瀏覽器遊戲之一，沒有 repo、沒有授權、也沒有掛真名。這一款在**四天內**從 0.1.0 走到 0.1.29（2026-11-10 → 11-13），其中十七個版本在同一天發出，每一版都寫進給玩家看的遊戲內更新紀錄。" },
+      { en: "The signature is tuning from data and saying so. Comments quote the pass rate that motivated each change, mark every number the government did not publish as a 'game setting', and describe a simulated pupil with a reaction delay used to sweep difficulty. The code is shipped unminified as plain ES modules, so all of that reasoning is readable in the browser.",
+        zh: "招牌是用數據調整，而且把數據寫出來。註解引用促成每次修改的通過率、把政府沒公布的每個數字標成「game setting」，還描述了一個有反應延遲、用來掃描難度的模擬學員。程式以未壓縮的 ES module 原樣出貨，所以這些推理在瀏覽器裡全都讀得到。" },
+      { en: "The debt is verifiability: tests and server code are named in comments but stay private, and the frame is carried over from the same creator's scooter-test game rather than built fresh.",
+        zh: "債務是可查核性：測試與伺服器端程式只在註解裡有名字，本身並不公開；框架則是從同一位創作者的機車路考遊戲帶過來的，不是重新做的。" }
+    ]
+  },
+  steventsao: {
+    key: "steventsao", color: "s6",
+    name: { en: "Steven Tsao", zh: "Steven Tsao" },
+    type: { en: "Solo developer + agents, live service", zh: "個人開發者＋agent・營運中的服務" },
+    url: "https://lifayuan.app/sources",
+    profile: [
+      { en: "One online game run as a service: a domain registered on 2026-10-18 and version tags up to v57.57 a month later, with quick match, rooms, chat, replays and a bilingual interface. The credit is on the game's own sources page; there is no public repository.",
+        zh: "一款以服務方式營運的線上遊戲：網域在 2026-10-18 註冊，一個月後版本標記已到 v57.57，有快速配對、房間、聊天、回放與雙語介面。署名寫在遊戲自己的史料頁上；沒有公開的 repo。" },
+      { en: "The working style shows in the comments: an 'owner' is quoted giving instructions, agents are described adding content by 'read an example, draft, check, fix, submit', and fixes are justified with telemetry — a date, a count, a device. The same care extends outward: election-law windows are coded into the game, and the parody roster ships with a 235-link bibliography and a takedown contact.",
+        zh: "工作方式寫在註解裡：有一位「owner」被引述下指示，agent 被描述成以「read an example, draft, check, fix, submit」的方式新增內容，修正則用遙測來論證——一個日期、一個次數、一種機型。同樣的謹慎也向外延伸：選舉法規的時間窗被寫進遊戲，戲仿角色名單則附上 235 個連結的參考書目與下架聯絡方式。" },
+      { en: "Strongest on netcode and deployment hardening; weakest where nothing can be inspected — server workers, check scripts, a licence — and in a global-scope client that still ships a mode it retired.",
+        zh: "最強的是連線與部署加固；最弱的是無從檢視的地方——伺服器端的 worker、檢查腳本、一份授權——以及一個到現在還出貨著已退役模式的全域作用域客戶端。" }
+    ]
+  },
+  shanshenbu: {
+    key: "shanshenbu", color: "s7",
+    name: { en: "Shanshenbu Brawl developers", zh: "閃身步大亂鬥 開發者" },
+    type: { en: "Unsigned indie, closed source", zh: "未署名的獨立開發・原始碼不公開" },
+    url: "https://shanshenbu.net/about",
+    profile: [
+      { en: "An unsigned project — the site says only 'independent development' and speaks as 'we' — that went live in October 2026 and within about four weeks had ranked play, a shop, cloud saves, an Android wrapper and four separate environments. There is no repository and no licence.",
+        zh: "一個沒有署名的專案——網站只寫「獨立開發」、用「我們」自稱——2026 年 10 月上線，大約四週內就有了排位、商城、雲端存檔、Android 殼與四個分開的環境。沒有 repo，也沒有授權。" },
+      { en: "The method is the opposite of tidy: everything is one 21,725-line HTML file, but that file is annotated like a logbook, with dated fixes, error counts, before-and-after measurements and the team's own security findings. Some comments are tagged as the result of an AI review, and several are signed with short handles whose nature cannot be determined.",
+        zh: "做法與整潔相反：全部塞在一個 21,725 行的 HTML 檔裡，但那個檔案被註解得像一本航海日誌，有標了日期的修正、錯誤次數、修改前後的量測，以及團隊對自己做出的資安發現。有些註解標明是 AI 審查的結果，還有幾則以簡短的代號署名，那些代號的性質無從判斷。" },
+      { en: "Highest technical ambition in the audit — rollback netcode, trained opponents, procedural animation — paired with its lowest structural discipline, and a ranked ladder that seats bots as players without saying so.",
+        zh: "本次體檢技術野心最高——rollback 連線、訓練出來的對手、程序化動畫——搭配的卻是最低的結構紀律，以及一個讓電腦以玩家身分入座卻沒有說明的排位賽。" }
+    ]
   }
 };
 
@@ -104,10 +146,10 @@ window.GA_METHOD = {
     zh: "技術深度與遊戲設計權重最高（各 20%），因為它們定義一款遊戲「是什麼」；後端安全與程式品質（各 15%）決定它接觸真實使用者後能不能活下來；測試、完成度、原創性（各 10%）補完整體健檢。加權總分由各面向分數即時計算——改一個分數總分就跟著變。"
   },
   process: [
-    { en: "**Full clone, full history.** All eight repositories were cloned with complete git history; commit timelines, authorship and cadence were analyzed alongside the code.", zh: "**完整 clone、完整歷史。**八個 repo 全數 clone 含完整 git 歷史；commit 時間軸、署名與節奏與程式碼一併分析。" },
+    { en: "**Full clone, full history — where a repository exists.** The first eight projects were cloned with complete git history; commit timelines, authorship and cadence were analyzed alongside the code. For the three projects with no public repository (One-Shot Parking, Floor Fight, Shanshenbu Brawl), every file the live site serves to a browser was downloaded and read instead. All three ship unminified code with comments intact, so the reading is still line-level.", zh: "**完整 clone、完整歷史——在有 repo 的前提下。**前八個專案全數 clone 含完整 git 歷史；commit 時間軸、署名與節奏與程式碼一併分析。至於三個沒有公開 repo 的專案（一把入庫、議場大亂鬥、閃身步大亂鬥），改為下載線上站台送到瀏覽器的每一個檔案來讀。三款出貨的都是未壓縮、註解完整的程式碼，所以仍然讀得到行號等級。" },
     { en: "**Source-level review, not README-level.** Every project's core game logic, backend functions, database schemas, security mechanisms, tests and build configs were read directly. Every claim in this report cites a file (and usually a line range) as evidence.", zh: "**讀原始碼，不是讀 README。**每個專案的核心遊戲邏輯、後端 functions、資料庫 schema、安全機制、測試與建置設定都被直接閱讀。報告中每個論斷都引用具體檔案（多附行號）為證。" },
-    { en: "**One rubric, cross-calibrated.** All eight projects were scored on the same 1–10 anchors by parallel reviewers using an identical brief, then cross-checked so a '7' means the same thing everywhere. For the one non-game (ssd), the Game Design dimension was re-scoped to Content & Pedagogy.", zh: "**同一規準、交叉校準。**六個專案由平行審查以完全相同的評分規準與指示打 1–10 分，再交叉校準確保每個「7 分」意義一致。唯一的非遊戲專案（ssd）將「遊戲設計」面向改評「內容／教學設計」。" },
-    { en: "**Live verification.** On 2026-07-20 all eleven public URLs of the first six projects (deployments, intro pages and the embedded game) were checked, and on 2026-08-25 the two life-sims' deployments were checked the same way — every one returned HTTP 200. All eight projects are live.", zh: "**現況查核。**2026-07-20 檢查前六個專案的全部 11 個公開網址（部署、介紹頁、嵌入式遊戲），2026-08-25 以同樣方式檢查兩款人生模擬的部署——全數回應 HTTP 200，八個專案都活著。" }
+    { en: "**One rubric, cross-calibrated.** All eleven projects were scored on the same 1–10 anchors by parallel reviewers using an identical brief, then cross-checked so a '7' means the same thing everywhere. For the one non-game (ssd), the Game Design dimension was re-scoped to Content & Pedagogy.", zh: "**同一規準、交叉校準。**十一個專案由平行審查以完全相同的評分規準與指示打 1–10 分，再交叉校準確保每個「7 分」意義一致。唯一的非遊戲專案（ssd）將「遊戲設計」面向改評「內容／教學設計」。" },
+    { en: "**Live verification.** On 2026-07-20 all eleven public URLs of the first six projects (deployments, intro pages and the embedded game) were checked, and on 2026-08-25 the two life-sims' deployments were checked the same way — every one returned HTTP 200. The three shipped-artifact projects were fetched on 2026-11-17. All eleven projects are live.", zh: "**現況查核。**2026-07-20 檢查前六個專案的全部 11 個公開網址（部署、介紹頁、嵌入式遊戲），2026-08-25 以同樣方式檢查兩款人生模擬的部署——全數回應 HTTP 200。三個以出貨物受檢的專案於 2026-11-17 抓取。十一個專案都活著。" }
   ],
   verification: [
     { en: "Genre context: 'Vampire Survivors–like' is a recognized subgenre with its own Wikipedia entry; 3D takes on the formula (e.g. Megabonk, 2025, one million copies in two weeks) are an established trend — context for zombie-survivors' originality score.", zh: "類型背景：「Vampire Survivors–like」是有維基百科條目的公認子類型；3D 化（如 2025 年兩週賣百萬套的 Megabonk）已是既定趨勢——這是 zombie-survivors 原創性評分的脈絡。", url: "https://en.wikipedia.org/wiki/Vampire_Survivors%E2%80%93like" },
@@ -119,13 +161,24 @@ window.GA_METHOD = {
     { en: "Scores are calibrated judgments, not measurements. The rubric and evidence are public precisely so you can disagree with a number and check the reasoning behind it.", zh: "分數是校準過的判斷，不是量測值。規準與證據全部公開，就是為了讓你可以不同意某個分數、並檢驗它背後的推理。" },
     { en: "Security findings are reported for defensive awareness. The leaked keys described here protect message boards on free hobby games; they are cited as hygiene lessons, not as an invitation.", zh: "安全發現以防禦意識為目的呈現。文中的洩漏密鑰保護的是免費小遊戲的留言板；引用它們是為了衛生課，不是邀請函。" },
     { en: "Commit counts are not comparable across projects. CheerLife was published entirely through the GitHub web UI, so its 17 commits are upload events, not development history; its real iteration happened off-platform and cannot be read from git at all.", zh: "commit 數在專案之間不可比較。CheerLife 全程透過 GitHub 網頁介面發布，那 17 個 commit 是上傳事件而非開發歷史；它真正的迭代發生在平台之外，完全無法從 git 讀出。" },
-    { en: "Two audit dates, not one. The first six projects describe commits as of 2026-07-20; yakyulife and CheerLife were audited on 2026-08-25 and describe their state on that date.", zh: "有兩個受檢日期，不是一個。前六個專案描述的是 2026-07-20 的 commit；yakyulife 與 CheerLife 於 2026-08-25 受檢，描述的是該日的狀態。" },
-    { en: "One snapshot in time (2026-07-20). Repositories move; scores describe the audited commits, not the future.", zh: "單一時間點快照（2026-07-20）。repo 會前進；分數描述的是受檢的 commit，不是未來。" }
+    { en: "Three projects were read without a repository. One-Shot Parking, Floor Fight and Shanshenbu Brawl publish no source, so only the client is visible: their server code, test suites and git history could not be inspected, their commit and dev-day fields read 'unknown', and their line counts are lines shipped to the browser. Telemetry figures, pass rates and test names quoted from their comments are the authors' own statements; a test that is named but cannot be read is credited as evidence of process, not as verification, which caps those testing scores.", zh: "有三個專案是在沒有 repo 的情況下讀的。一把入庫、議場大亂鬥、閃身步大亂鬥都沒有公開原始碼，所以只看得到客戶端：它們的伺服器端程式、測試套件與 git 歷史都無法檢視，commit 數與開發天數欄位寫的是「不明」，行數則是送到瀏覽器的行數。從註解引用的遙測數字、通過率與測試檔名，都是作者自己的陳述；一支被點名卻讀不到的測試只算流程存在的證據、不算驗證，這幾款的測試分數因此設了上限。" },
+    { en: "Three audit dates, not one. The first six projects describe commits as of 2026-07-20; yakyulife and CheerLife were audited on 2026-08-25; the three shipped-artifact projects describe what their sites served on 2026-11-17.", zh: "有三個受檢日期，不是一個。前六個專案描述的是 2026-07-20 的 commit；yakyulife 與 CheerLife 於 2026-08-25 受檢；三個以出貨物受檢的專案描述的是它們的站台在 2026-11-17 送出的內容。" },
+    { en: "Each score is a snapshot of its audit date. Repositories and live sites move; scores describe what was audited, not the future.", zh: "每個分數都是受檢當日的快照。repo 與線上站台都會前進；分數描述的是受檢的對象，不是未來。" }
   ]
 };
 
 /* Glossary — terms that appear across the analyses */
 window.GA_GLOSSARY = [
+  { term: { en: "Rollback netcode", zh: "Rollback netcode（回滾式連線）" }, cat: "Network",
+    def: { en: "A way to run a fast-paced game over a network without waiting for the other side: each peer simulates ahead using a guess for inputs that have not arrived, then rewinds and re-simulates when the real input shows up. It only works if the simulation is deterministic. Shanshenbu Brawl implements it in the browser with a seeded PRNG, quantized floats and periodic state hashes.", zh: "讓快節奏遊戲在網路上不必等對方的做法：每一端先用猜的輸入往前模擬，真正的輸入到了再倒帶重算。前提是模擬必須具決定性。閃身步大亂鬥在瀏覽器裡實作了它，用有種子的 PRNG、量化的浮點數與定期的狀態雜湊。" } },
+  { term: { en: "Client-side prediction", zh: "客戶端預測" }, cat: "Network",
+    def: { en: "With a server-authoritative game, the client shows the result of its own action immediately instead of waiting for the server, then reconciles when the server's answer arrives. Floor Fight predicts the local player's swings and extrapolates everyone else from the last server report.", zh: "在伺服器權威的遊戲裡，客戶端不等伺服器、先把自己動作的結果顯示出來，等伺服器的答案到了再對帳。議場大亂鬥對本地玩家的揮擊做預測，其他人則從上一次的伺服器報告外插。" } },
+  { term: { en: "Fixed timestep", zh: "固定時間步" }, cat: "Simulation",
+    def: { en: "Advancing a simulation in equal slices of time regardless of how fast frames are drawn, carrying any leftover time to the next frame. It makes outcomes independent of frame rate. One-Shot Parking judges in fixed 1/120 s steps and integrates the car in substeps of at most 1/240 s.", zh: "不管畫面畫得多快，都以等長的時間片推進模擬，餘下的時間帶到下一幀。這讓結果與幀率無關。一把入庫以固定 1/120 秒步進判分，車輛則以最長 1/240 秒的子步積分。" } },
+  { term: { en: "Kinematic bicycle model", zh: "Kinematic bicycle model（運動學自行車模型）" }, cat: "Simulation",
+    def: { en: "A standard simplification of a car for low-speed manoeuvring: the two front wheels and the two rear wheels are each collapsed into one, and the car turns about a point set by the steering angle and wheelbase, with no tyre slip. It is accurate enough for parking and is what One-Shot Parking uses.", zh: "低速操車時常用的車輛簡化模型：把兩個前輪與兩個後輪各自合成一個，車子繞著由轉向角與軸距決定的點轉動，不考慮輪胎打滑。用來模擬停車夠準，一把入庫用的就是它。" } },
+  { term: { en: "Shipped-artifact audit", zh: "出貨物受檢" }, cat: "Method",
+    def: { en: "Reading a project from the files its server actually sends to a browser, when no source repository is public. It can be line-level if the code is not minified, but git history, tests and server code are out of reach — which is why the three projects audited this way show 'unknown' for commits and carry capped testing scores.", zh: "在沒有公開原始碼 repo 的情況下，從伺服器實際送到瀏覽器的檔案來讀一個專案。如果程式沒有壓縮，可以讀到行號等級，但 git 歷史、測試與伺服器端程式都搆不到——這就是為什麼以這種方式受檢的三個專案在 commit 欄位顯示「不明」，測試分數也有上限。" } },
   { term: { en: "Thin instances", zh: "Thin instances" }, cat: "3D",
     def: { en: "A Babylon.js technique that draws thousands of copies of one mesh in a single draw call by feeding the GPU a raw matrix buffer. Cheapest possible instancing — but no per-instance culling or picking.", zh: "Babylon.js 技術：把原始矩陣 buffer 直接餵給 GPU，用單一 draw call 畫出上千份同一 mesh。最便宜的 instancing——代價是無法逐實例剔除或點選。" } },
   { term: { en: "InstancedMesh", zh: "InstancedMesh" }, cat: "3D",
@@ -213,9 +266,15 @@ window.SITE_PAGES = [
     title: { en: "YaKyoLife", zh: "YaKyoLife 棒球人生" } },
   { slug: "cheerlife", layout: "project", icon: "celebration", project: "cheerlife",
     title: { en: "CheerLife", zh: "CheerLife 啦啦隊人生" } },
+  { slug: "car-license", layout: "project", icon: "directions_car", project: "car-license",
+    title: { en: "One-Shot Parking", zh: "一把入庫" } },
+  { slug: "floor-fight", layout: "project", icon: "gavel", project: "floor-fight",
+    title: { en: "Floor Fight", zh: "議場大亂鬥" } },
+  { slug: "shanshenbu", layout: "project", icon: "sports_martial_arts", project: "shanshenbu",
+    title: { en: "Shanshenbu Brawl", zh: "閃身步大亂鬥" } },
   { slug: "authors", layout: "authors", icon: "group",
     title: { en: "Authors", zh: "作者對比" },
-    subtitle: { en: "Two very different ways to ship software", zh: "兩種截然不同的出貨方式" } },
+    subtitle: { en: "Seven very different ways to ship software", zh: "七種截然不同的出貨方式" } },
   { slug: "methodology", layout: "methodology", icon: "rule",
     title: { en: "Methodology", zh: "評分方法" },
     subtitle: { en: "Rubric, weights, process, verification and limits", zh: "規準、權重、流程、佐證與限制" } },
