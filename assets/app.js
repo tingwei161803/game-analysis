@@ -159,6 +159,8 @@
 
     /* ---------- HOME / hub ---------- */
     R.hub = function () {
+      /* The 3D arcade hall is the home page's front door; it mounts itself above <main>. */
+      if (window.ArcadeHall) window.ArcadeHall.mount(L);
       var ranked = PROJECTS.slice().sort(function (a, b) { return total(b) - total(a); });
       var maxTotal = 10;
       var craigGames = PROJECTS.filter(function (p) { return p.author === "craig7351"; });

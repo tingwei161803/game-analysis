@@ -10,6 +10,7 @@
 
 ## ✨ 功能特色
 
+- **3D 街機廳首頁** — 首頁最上方是一座 three.js 街機廳：每個專案一台機台，招牌是專案名稱，螢幕即時顯示七條分數與加權總分，機身顏色代表作者；捲動、拖曳或方向鍵沿著機台走，「投幣」進入完整報告。沒有 WebGL 時自動退回純文字標題，下方內容照常。
 - **加權總分排行** — 七大面向依權重（技術/設計各 20%、後端/品質各 15%、測試/完成度/原創各 10%）即時計算總分。
 - **分數矩陣熱力圖** — 20 專案 × 7 面向一眼看完，深藍＝越強，滑過任一格看細項。
 - **雷達圖輪廓** — 每個專案一張雷達小圖 + 作者平均分疊圖，形狀直接顯示強項與空洞。
@@ -18,7 +19,7 @@
 - **評分方法頁** — 完整規準、權重理由、分析流程、外部佐證與限制聲明，全部公開讓你能反駁每個數字。
 - **術語速查** — 可搜尋的技術詞彙表（thin instances、D1、限流、prompt injection…）。
 - **中英文各有自己的網址 + 深/淺色** — 英文在根目錄、中文在 `/zh-Hant/`，切換語言＝換一個網址（可加書籤、可分享）；深/淺色仍由 localStorage 記憶。
-- **零 build 純靜態** — 純 HTML/CSS/JS，無框架、無打包，直接部署 GitHub Pages。
+- **零 build 純靜態** — 純 HTML/CSS/JS，無框架、無打包，直接部署 GitHub Pages。唯一的外部程式庫是首頁街機廳用的 three.js（固定版本 0.170.0，經 import map 從 jsDelivr 載入）。
 
 ## 📂 內容結構與資料來源
 
@@ -70,7 +71,10 @@ game-analysis/
 ├── assets/
 │   ├── styles.css             # 編輯風視覺（襯線標題 + 等寬數據）+ 明暗 token
 │   ├── shell.js               # 共用 chrome：app bar / 跨頁導覽 / footer / dialog
-│   └── app.js                 # 版型引擎：依 data-page 選 renderer + SVG 雷達/熱力圖
+│   ├── app.js                 # 版型引擎：依 data-page 選 renderer + SVG 雷達/熱力圖
+│   ├── arcade-ui.js           # 首頁街機廳的 DOM 層：標題、說明卡，語言與主題跟著 shell
+│   ├── arcade.js              # 首頁街機廳的 three.js 場景（ES module）
+│   └── arcade.css             # 街機廳樣式
 ├── data/
 │   ├── projects.js            # 二十個專案的七面向評語、亮點、弱點、統計（雙語）
 │   └── data.js                # 站台 meta、權重模型、作者、方法論、術語、頁面清單
@@ -81,7 +85,7 @@ game-analysis/
 ## 🛠 本機使用
 
 ```bash
-# 任一靜態伺服器即可；本專案零 build、零依賴
+# 任一靜態伺服器即可；本專案零 build（首頁的 three.js 由 CDN 載入，需要網路）
 uv run python -m http.server 4173
 # 開 http://localhost:4173/
 ```
