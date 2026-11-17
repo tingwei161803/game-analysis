@@ -159,6 +159,8 @@
 
     /* ---------- HOME / hub ---------- */
     R.hub = function () {
+      /* The 3D arcade hall is the home page's front door; it mounts itself above <main>. */
+      if (window.ArcadeHall) window.ArcadeHall.mount(L);
       var ranked = PROJECTS.slice().sort(function (a, b) { return total(b) - total(a); });
       var maxTotal = 10;
       var craigGames = PROJECTS.filter(function (p) { return p.author === "craig7351"; });
@@ -170,14 +172,14 @@
       /* hero */
       html += '<section class="hero">' +
         '<div class="overline"><span>' + esc(t({ en: "Code-level audit · 2026-07 → 11", zh: "程式碼級體檢 · 2026-07 → 11" })) + "</span></div>" +
-        "<h1>" + esc(t({ en: "Eleven projects, ", zh: "十一個專案，" })) + "<em>" + esc(t({ en: "read line by line", zh: "逐行讀過" })) + "</em>" + esc(t({ en: ".", zh: "。" })) + "</h1>" +
+        "<h1>" + esc(t({ en: PROJECTS.length + " projects, ", zh: PROJECTS.length + " 個專案，" })) + "<em>" + esc(t({ en: "read line by line", zh: "逐行讀過" })) + "</em>" + esc(t({ en: ".", zh: "。" })) + "</h1>" +
         '<p class="lede">' + esc(t({
-          en: "Five AI-built 3D browser games by craig7351 across one 36-day sprint, OCF's 22-month security curriculum, two Taiwanese text life-sims that share a designer, and three closed-source Taiwanese web games read from the code they ship — each scored on seven dimensions from the code itself, not the README.",
-          zh: "craig7351 在 36 天衝刺內用 AI 打造的五款 3D 瀏覽器遊戲、OCF 維護 22 個月的資安教材，兩款共用同一位設計者的台灣純文字人生模擬，再加上三款原始碼不公開、改從出貨程式讀起的台灣網頁遊戲——每一個都從程式碼本身（不是 README）評七大面向。"
+          en: "Five AI-built 3D browser games by craig7351 across one 36-day sprint, OCF's 22-month security curriculum, two Taiwanese text life-sims that share a designer, and a growing set of Taiwanese web games — most with no public repository, read from the code they actually ship — each scored on seven dimensions from the code itself, not the README.",
+          zh: "craig7351 在 36 天衝刺內用 AI 打造的五款 3D 瀏覽器遊戲、OCF 維護 22 個月的資安教材，兩款共用同一位設計者的台灣純文字人生模擬，再加上一批持續增加的台灣網頁遊戲（多數沒有公開 repo，改從實際出貨的程式讀起）——每一個都從程式碼本身（不是 README）評七大面向。"
         })) + "</p>" +
-        '<p class="small" style="margin:-16px 0 26px;max-width:62ch">' + esc(t({
-          en: "These projects are the work of their original authors. This site is an independent third-party analysis — every project links back to its original repository (or, where none is public, its live site) and author below.",
-          zh: "這些專案皆為原作者的作品。本站是獨立的第三方分析——下方每個專案都連回其原始 repo（沒有公開 repo 的則連回線上站台）與作者。"
+        '<p class="small" style="margin:-16px 0 26px;text-wrap:pretty">' + esc(t({
+          en: "These projects are the work of their original authors. This site is a non-professional analysis by AI and does not represent the real experience of playing the games — every project links back to its original repository (or, where none is public, its live site) and author below.",
+          zh: "這些專案皆為原作者的作品。本站是 AI 的非專業分析，不代表真實遊戲體驗——下方每個專案都連回其原始 repo（沒有公開 repo 的則連回線上站台）與作者。"
         })) + "</p>" +
         '<div class="statband">' +
           stat(PROJECTS.length, { en: "projects audited", zh: "受檢專案" }) +
@@ -208,7 +210,7 @@
 
       /* project entries */
       html += '<section class="section"><div class="overline"><span>' + esc(t({ en: "Deep dives", zh: "深度分析" })) + "</span></div>" +
-        "<h2>" + esc(t({ en: "The projects", zh: "十一個專案" })) + "</h2>" +
+        "<h2>" + esc(t({ en: "The projects", zh: PROJECTS.length + " 個專案" })) + "</h2>" +
         '<p class="section-sub">' + esc(t({ en: "Open any project for its full seven-dimension report, highlights, weaknesses and evidence.", zh: "點開任一專案看完整七面向報告、亮點、弱點與證據。" })) + "</p>" +
         '<div class="entry-grid" id="entryGrid"></div></section>';
 
@@ -448,17 +450,17 @@
       var html = "";
 
       html += '<section class="hero" style="padding-top:20px">' +
-        '<div class="overline"><span>' + esc(t({ en: "Seven authors", zh: "七位作者" })) + "</span></div>" +
-        "<h1>" + esc(t({ en: "Seven ways to ship", zh: "七種出貨方式" })) + "</h1>" +
-        '<p class="lede">' + esc(t({ en: "The same era, the same AI-assisted tooling, seven different philosophies — one optimizing for velocity, one for institutional continuity, one for measured balance, one that inherited a format and re-skinned it, and three that keep their source private while running a live game: tuned from telemetry, run as a hardened service, or logged in the open inside a single file.", zh: "同一個時代、同樣的 AI 輔助工具，卻是七種哲學——一個最佳化速度、一個最佳化制度延續性、一個最佳化可量測的平衡、一個繼承既有格式再換皮，還有三個不公開原始碼、卻各自營運著一款線上遊戲：用遙測調校的、當成加固過的服務來跑的，以及把一切攤開記在單一檔案裡的。" })) + "</p></section>";
+        '<div class="overline"><span>' + esc(t({ en: authorList.length + " authors", zh: authorList.length + " 位作者" })) + "</span></div>" +
+        "<h1>" + esc(t({ en: authorList.length + " ways to ship", zh: authorList.length + " 種出貨方式" })) + "</h1>" +
+        '<p class="lede">' + esc(t({ en: "The same era, the same AI-assisted tooling, many different philosophies — one optimizing for velocity, one for institutional continuity, one for measured balance, one that inherited a format and re-skinned it, and three that keep their source private while running a live game: tuned from telemetry, run as a hardened service, or logged in the open inside a single file. The newer entries widen the range further: an offline game that asked to be audited, a paid AI storyteller, a party platform with a Rust server, an election model, a quiz, a nurse's shift and a teacher's year.", zh: "同一個時代、同樣的 AI 輔助工具，卻是各不相同的哲學——一個最佳化速度、一個最佳化制度延續性、一個最佳化可量測的平衡、一個繼承既有格式再換皮，還有三個不公開原始碼、卻各自營運著一款線上遊戲：用遙測調校的、當成加固過的服務來跑的，以及把一切攤開記在單一檔案裡的。後來加入的條目把範圍拉得更開：主動投稿受檢的離線小遊戲、付費的 AI 說書人、有 Rust 伺服器的派對平台、選舉模型、測驗、護理師的一個班，以及老師的一學年。" })) + "</p></section>";
 
       /* profiles */
       html += '<section class="section"><div class="author-grid" id="authorGrid"></div></section>';
 
       /* radar compare */
       html += '<section class="section"><div class="overline"><span>' + esc(t({ en: "Head to head", zh: "正面對決" })) + "</span></div>" +
-        "<h2>" + esc(t({ en: "Author averages, overlaid", zh: "七位作者平均分疊圖" })) + "</h2>" +
-        '<p class="section-sub">' + esc(t({ en: "craig7351 = mean of five games; every other author = their single project. The overlaps tell the story: craig leads on completeness and game feel, OCF on content and security posture, LeoGGcat on design and code quality, and the three closed-source games on technical depth and completeness — and every one of them is weakest on testing.", zh: "craig7351＝五款遊戲平均；其餘作者＝各自的單一專案。重疊處說明一切：craig 在完成度與手感領先，OCF 在內容與安全姿態領先，LeoGGcat 在設計與程式品質領先，三款不公開原始碼的遊戲則在技術深度與完成度領先——而七位最弱的一項全都是測試。" })) + "</p>" +
+        "<h2>" + esc(t({ en: "Author averages, overlaid", zh: "各作者平均分疊圖" })) + "</h2>" +
+        '<p class="section-sub">' + esc(t({ en: "craig7351 = mean of five games, aioo = mean of two; every other author = their single project. The overlaps tell the story: craig leads on completeness and game feel, OCF on content and security posture, LeoGGcat on design and code quality, and the closed-source live games on technical depth and completeness — and nearly every one of them is weakest on testing.", zh: "craig7351＝五款遊戲平均、aioo＝兩款平均；其餘作者＝各自的單一專案。重疊處說明一切：craig 在完成度與手感領先，OCF 在內容與安全姿態領先，LeoGGcat 在設計與程式品質領先，不公開原始碼、營運中的幾款遊戲則在技術深度與完成度領先——而幾乎每一位最弱的一項都是測試。" })) + "</p>" +
         '<div class="card viz"><div style="max-width:460px;margin:0 auto" id="cmpRadar"></div><div class="legend" id="cmpLegend"></div></div></section>';
 
       /* timeline */
